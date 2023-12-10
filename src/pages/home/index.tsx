@@ -1,7 +1,10 @@
 import { ReactElement } from "react";
 import {
+  BookAbout,
   BookCard,
+  BookCards,
   BookInfo,
+  BookStars,
   EvaluationCards,
   HomeContainer,
   MostRecentEvaluations,
@@ -16,6 +19,7 @@ import bookImg from "../../../public/assets/Book.png";
 import { CaretRight } from "phosphor-react";
 import popularBookImg from "../../../public/assets/Book2.png";
 import Image from "next/image";
+import { Stars } from "@/components/Stars";
 
 export default function Home() {
   return (
@@ -74,18 +78,86 @@ export default function Home() {
             <span>Livros populares</span>
 
             <SeeMoreButton>
-              Ver todos <CaretRight size={16} />
+              <span>Ver todos</span> <CaretRight size={16} />
             </SeeMoreButton>
           </PopularBooksHeading>
 
-          <BookCard>
-            <Image src={popularBookImg.src} alt="" width={64} height={94} />
+          <BookCards>
+            <BookCard>
+              <Image src={popularBookImg.src} alt="" width={64} height={94} />
 
-            <BookInfo>
-              <h4>A revolução dos bichos</h4>
-              <span>George Orwell</span>
-            </BookInfo>
-          </BookCard>
+              <BookAbout>
+                <BookInfo>
+                  <h4>A revolução dos bichos</h4>
+                  <span>George Orwell</span>
+                </BookInfo>
+
+                <BookStars>
+                  <Stars amount={4} />
+                </BookStars>
+              </BookAbout>
+            </BookCard>
+
+            <BookCard>
+              <Image src={popularBookImg.src} alt="" width={64} height={94} />
+
+              <BookAbout>
+                <BookInfo>
+                  <h4>A revolução dos bichos</h4>
+                  <span>George Orwell</span>
+                </BookInfo>
+
+                <BookStars>
+                  <Stars amount={4} />
+                </BookStars>
+              </BookAbout>
+            </BookCard>
+
+            <BookCard>
+              <Image src={popularBookImg.src} alt="" width={64} height={94} />
+
+              <BookAbout>
+                <BookInfo>
+                  <h4>A revolução dos bichos</h4>
+                  <span>George Orwell</span>
+                </BookInfo>
+
+                <BookStars>
+                  <Stars amount={4} />
+                </BookStars>
+              </BookAbout>
+            </BookCard>
+
+            <BookCard>
+              <Image src={popularBookImg.src} alt="" width={64} height={94} />
+
+              <BookAbout>
+                <BookInfo>
+                  <h4>A revolução dos bichos</h4>
+                  <span>George Orwell</span>
+                </BookInfo>
+
+                <BookStars>
+                  <Stars amount={4} />
+                </BookStars>
+              </BookAbout>
+            </BookCard>
+
+            <BookCard>
+              <Image src={popularBookImg.src} alt="" width={64} height={94} />
+
+              <BookAbout>
+                <BookInfo>
+                  <h4>A revolução dos bichos</h4>
+                  <span>George Orwell</span>
+                </BookInfo>
+
+                <BookStars>
+                  <Stars amount={4} />
+                </BookStars>
+              </BookAbout>
+            </BookCard>
+          </BookCards>
         </PopularBooks>
       </HomeContainer>
     </>

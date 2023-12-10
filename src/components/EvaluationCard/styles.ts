@@ -2,7 +2,6 @@ import { styled } from "@/styles/stitches.config";
 
 export const CardContainer = styled("div", {
   width: "100%",
-  maxWidth: "38rem",
   backgroundColor: "$gray700",
   padding: "$6",
   borderRadius: "$sm",
@@ -14,6 +13,11 @@ export const ProfileArea = styled("div", {
   justifyContent: "space-between",
 
   marginBottom: "$8",
+
+  "@media(max-width: 640px)": {
+    flexDirection: "column",
+    gap: "$4",
+  },
 });
 
 export const Persona = styled("div", {
@@ -52,6 +56,11 @@ export const BookArea = styled("div", {
   display: "flex",
   alignItems: "flex-start",
   gap: "$5",
+
+  "@media(max-width: 640px)": {
+    flexDirection: "column",
+    alignItems: "center",
+  },
 });
 
 export const ImageBookContainer = styled("div", {

@@ -13,6 +13,7 @@ export const globalStyles = globalCss({
     backgroundColor: "$gray800",
     color: "$gray100",
     "webkit-font-smoothing": `antialiased`,
+    fontFamily: "$default",
   },
 
   button: {
@@ -21,7 +22,7 @@ export const globalStyles = globalCss({
   },
 
   "body, input, textarea, button": {
-    fontFamily: "Nunito",
+    fontFamily: "$default",
     fontWeight: 400,
   },
 });

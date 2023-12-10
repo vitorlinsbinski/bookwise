@@ -1,11 +1,16 @@
 import { styled } from "@/styles/stitches.config";
 
 export const HeaderContainer = styled("header", {
-  paddingTop: "2.2rem",
+  width: " 100%",
+  padding: "2rem 0 2rem 3rem",
+  backgroundColor: "$gray800",
+  position: "sticky",
+  top: 0,
+  zIndex: "5",
 
   "@media(max-width: 540px)": {
-    marginLeft: "4rem",
-    paddingTop: "$2",
+    margin: 0,
+    padding: "$4 4rem",
   },
 });
 

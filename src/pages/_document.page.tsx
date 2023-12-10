@@ -7,8 +7,7 @@ export default function Document() {
       <Head>
         <style
           id="stitches"
-          dangerouslySetInnerHTML={{ __html: getCssText() }}
-        ></style>
+          dangerouslySetInnerHTML={{ __html: getCssText() }}></style>
       </Head>
       <body>
         <Main />

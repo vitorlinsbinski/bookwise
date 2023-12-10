@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { Nunito_Sans } from "next/font/google";
+import { Nunito, Nunito_Sans } from "next/font/google";
 import { globalStyles } from "@/styles/global";
 import DefaultLayout from "@/components/DefaultLayout";
 import { ReactElement, ReactNode } from "react";
@@ -24,8 +24,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return getLayout(
-    <main className={nunito.className}>
+    <div className={nunito.className}>
       <Component {...pageProps} />
-    </main>
+    </div>
   );
 }

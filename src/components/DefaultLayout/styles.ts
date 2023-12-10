@@ -1,12 +1,12 @@
 import { styled } from "@stitches/react";
 
 export const LayoutContainer = styled("div", {
-  width: "100%",
-  maxWidth: "calc(1324px - 2 * 20px)",
-  padding: "20px",
+  display: "grid",
+  gridTemplateColumns: "auto 1fr",
+  padding: "$5",
 
-  display: "flex",
-  alignItems: "flex-start",
-
-  gap: "4rem",
+  "@media(max-width: 540px)": {
+    display: "block",
+    padding: "$4",
+  },
 });

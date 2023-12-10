@@ -14,7 +14,7 @@ export const SidebarContainer = styled("aside", {
   top: 20,
   left: 20,
   overflow: "hidden",
-  zIndex: 1,
+  zIndex: 10,
   padding: "$5 $8 $6 $8",
 
   display: "flex",
@@ -50,7 +50,7 @@ export const SidebarContainer = styled("aside", {
     top: 0,
     left: 0,
     borderRadius: "0 $md $md 0",
-    maxHeight: "100vh",
+    maxHeight: "100%",
   },
 });
 
