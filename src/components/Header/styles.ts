@@ -6,11 +6,16 @@ export const HeaderContainer = styled("header", {
   backgroundColor: "$gray800",
   position: "sticky",
   top: 0,
-  zIndex: "5",
+  zIndex: "20",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  flexWrap: "wrap",
+  gap: "$5",
 
   "@media(max-width: 540px)": {
     margin: 0,
-    padding: "$4 4rem",
+    padding: "$4 0 $4 4rem",
   },
 });
 

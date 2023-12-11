@@ -5,7 +5,7 @@ import sidebarBg from "../../../public/assets/sidebar-bg.png";
 export const SidebarContainer = styled("aside", {
   width: "4rem",
   height: "61.75rem",
-  maxHeight: "95vh",
+  maxHeight: "93vh",
 
   backgroundColor: "$gray800",
   borderRadius: "$md",
@@ -14,7 +14,7 @@ export const SidebarContainer = styled("aside", {
   top: 20,
   left: 20,
   overflow: "hidden",
-  zIndex: 10,
+  zIndex: 1000,
   padding: "$5 $8 $6 $8",
 
   display: "flex",

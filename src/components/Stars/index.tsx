@@ -8,13 +8,13 @@ interface StarsProps {
 export function Stars({ amount }: StarsProps) {
   const generateUniqueId = () => uuidv4();
 
-  const filledStars = Array(amount).fill(
-    <Star size={16} weight="fill" key={generateUniqueId()} />
-  );
+  const filledStars = Array(amount)
+    .fill(null)
+    .map(() => <Star size={16} weight="fill" key={uuidv4()} />);
 
-  const emptyStars = Array(5 - amount).fill(
-    <Star size={16} key={generateUniqueId()} />
-  );
+  const emptyStars = Array(5 - amount)
+    .fill(null)
+    .map(() => <Star size={16} key={uuidv4()} />);
 
   const allStars = filledStars.concat(emptyStars);
 

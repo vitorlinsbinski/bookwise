@@ -1,12 +1,13 @@
-import { styled } from "@stitches/react";
+import { styled } from "@/styles/stitches.config";
 
 export const HomeContainer = styled("main", {
   display: "flex",
   paddingLeft: "$4",
-  gap: "$6",
+  gap: "$10",
   width: " 100%",
   maxWidth: "95%",
   margin: "0 auto",
+  alignItems: "start",
 
   "@media(max-width: 1200px)": {
     maxWidth: "100%",
@@ -25,13 +26,19 @@ export const MostRecentEvaluations = styled("section", {
   width: "100%",
   maxWidth: "50rem",
 
-  span: {
-    fontSize: "$sm",
-    color: "$gray100",
-    fontWeight: "$regular",
-    lineHeight: "$base",
-    marginBottom: "$4",
-    display: "inline-block",
+  div: {
+    "&:last-child": {
+      span: {
+        "&:first-child": {
+          fontSize: "$sm",
+          color: "$gray100",
+          fontWeight: "$regular",
+          lineHeight: "$base",
+
+          display: "inline-block",
+        },
+      },
+    },
   },
 
   "@media(max-width: 1200px)": {
@@ -44,16 +51,124 @@ export const EvaluationCards = styled("div", {
   alignItems: "center",
   gap: "$3",
   flexDirection: "column",
+  marginTop: "$4",
+});
+
+export const LastReadingArea = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "$5",
+  marginBottom: "$10",
+
+  "@media(max-width: 720px)": {
+    marginTop: "$3",
+  },
+});
+
+export const LastReadingHeading = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  span: {
+    fontSize: "$sm",
+    fontWeight: "$regular",
+    lineHeight: "$base",
+    color: "$gray100",
+  },
+});
+
+export const LastReadingCard = styled("div", {
+  width: "100%",
+  padding: "$5 $6",
+  backgroundColor: "$gray600",
+  borderRadius: "$sm",
+
+  display: "flex",
+  alignItems: "flex-start",
+  gap: "$6",
+
+  "@media(max-width: 720px)": {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+});
+
+export const LastReadingBookImage = styled("div", {
+  borderRadius: "$xs",
+  overflow: "hidden",
+  width: "6.75rem",
+
+  img: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  },
+});
+
+export const LastReadingBookInfo = styled("div", {
+  flex: 1,
+});
+
+export const LastReadingCardTop = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  div: {
+    display: "flex",
+    alignItems: "center",
+    gap: "$1",
+
+    svg: {
+      color: "$purple100",
+    },
+  },
+});
+
+export const LastReadingCardMiddle = styled("div", {
+  marginTop: "$3",
+  marginBottom: "$6",
+
+  h4: {
+    fontSize: "$md",
+    fontWeight: "$bold",
+    lineHeight: "$short",
+    color: "$gray100",
+  },
+
+  span: {
+    fontSize: "$sm",
+    fontWeight: "$regular",
+    lineHeight: "$base",
+    color: "$gray400",
+  },
+
+  "@media(max-width: 720px)": {
+    marginTop: "$2",
+    marginBottom: "$4",
+  },
+});
+
+export const LastReadingCardBottom = styled("div", {
+  p: {
+    fontSize: "$sm",
+    fontWeight: "$regular",
+    lineHeight: "$base",
+    color: "$gray300",
+  },
 });
 
 export const PopularBooks = styled("section", {
   position: "sticky",
-  top: "$4",
+  top: "6rem",
   left: 0,
   width: "40%",
+  zIndex: 10,
 
   "@media(max-width: 1200px)": {
     width: "100%",
+    position: "inherit",
   },
 });
 
@@ -63,7 +178,7 @@ export const PopularBooksHeading = styled("div", {
   justifyContent: "space-between",
   marginBottom: "$5",
 
-  span: {
+  "& > span": {
     fontSize: "$sm",
     fontWeight: "$regular",
     lineHeight: "$base",
@@ -121,15 +236,19 @@ export const BookCard = styled("div", {
 
   cursor: "pointer",
   borderRadius: "$sm",
+  border: "2px solid transparent",
 
-  transition: "background-color .2s",
+  transition: "all.2s",
 
   "&:hover": {
-    backgroundColor: "$gray600",
+    borderColor: "$gray600",
   },
 });
 
-export const BookAbout = styled("div", {});
+export const BookAbout = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+});
 
 export const BookInfo = styled("div", {
   marginBottom: "auto",
@@ -149,4 +268,13 @@ export const BookInfo = styled("div", {
   },
 });
 
-export const BookStars = styled("div", {});
+export const BookStars = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  gap: "$1",
+  marginTop: "auto",
+
+  svg: {
+    color: "$purple100",
+  },
+});

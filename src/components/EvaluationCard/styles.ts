@@ -14,7 +14,7 @@ export const ProfileArea = styled("div", {
 
   marginBottom: "$8",
 
-  "@media(max-width: 640px)": {
+  "@media(max-width: 720px)": {
     flexDirection: "column",
     gap: "$4",
   },
@@ -57,7 +57,7 @@ export const BookArea = styled("div", {
   alignItems: "flex-start",
   gap: "$5",
 
-  "@media(max-width: 640px)": {
+  "@media(max-width: 720px)": {
     flexDirection: "column",
     alignItems: "center",
   },

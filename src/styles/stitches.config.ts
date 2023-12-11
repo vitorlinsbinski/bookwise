@@ -3,7 +3,7 @@ import { createStitches } from "@stitches/react";
 export const { getCssText, styled, globalCss } = createStitches({
   theme: {
     fonts: {
-      default: "Nunito, sans-serif",
+      default: "Nunito Sans, sans-serif",
     },
 
     space: {

@@ -1,4 +1,4 @@
-import { styled } from "@stitches/react";
+import { styled } from "@/styles/stitches.config";
 
 export const Button = styled("button", {
   width: "23.25rem",
