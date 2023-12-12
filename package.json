@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.5",
     "@stitches/react": "^1.2.8",
     "@types/uuid": "^9.0.7",
     "date-fns": "^2.30.0",

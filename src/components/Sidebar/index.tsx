@@ -4,6 +4,8 @@ import {
   ListDashes,
   SignIn,
   SignOut,
+  TextIndent,
+  TextOutdent,
   User,
 } from "phosphor-react";
 import {
@@ -44,25 +46,26 @@ export function Sidebar({ isSignedIn }: SidebarProps) {
   return (
     <SidebarContainer isOpen={isSidebarOpen}>
       <SidebarToggle onClick={handleSidebarToggle} isOpen={isSidebarOpen}>
-        <ListDashes size={24} />
+        {!isSidebarOpen ? <TextIndent size={24} /> : <TextOutdent size={24} />}
       </SidebarToggle>
 
-      <LogoContainer>
-        <Image
-          src={isSidebarOpen ? logoImg : logoImgReduced}
-          alt=""
-          width={128}
-          height={32}
-        />
-      </LogoContainer>
+      <Link href={"/"}>
+        <LogoContainer>
+          <Image
+            src={isSidebarOpen ? logoImg : logoImgReduced}
+            alt=""
+            width={128}
+            height={32}
+          />
+        </LogoContainer>
+      </Link>
 
       <Navbar>
         <NavList>
           <Link href={"/"}>
             <NavButton
               className={route.asPath == "/" ? "active" : ""}
-              isOpen={isSidebarOpen}
-            >
+              isOpen={isSidebarOpen}>
               <ChartLineUp size={24} />
               <span>Início</span>
             </NavButton>
@@ -71,8 +74,7 @@ export function Sidebar({ isSignedIn }: SidebarProps) {
           <Link href={"explorar"}>
             <NavButton
               className={route.asPath == "/explorar" ? "active" : ""}
-              isOpen={isSidebarOpen}
-            >
+              isOpen={isSidebarOpen}>
               <Binoculars size={24} /> <span>Explorar</span>
             </NavButton>
           </Link>
@@ -81,8 +83,7 @@ export function Sidebar({ isSignedIn }: SidebarProps) {
             <Link href={"/perfil"}>
               <NavButton
                 className={route.asPath == "/perfil" ? "active" : ""}
-                isOpen={isSidebarOpen}
-              >
+                isOpen={isSidebarOpen}>
                 <User size={24} /> <span>Perfil</span>
               </NavButton>
             </Link>

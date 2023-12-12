@@ -46,7 +46,7 @@ export const MostRecentEvaluations = styled("section", {
   },
 });
 
-export const EvaluationCards = styled("div", {
+export const ReviewCards = styled("div", {
   display: "flex",
   alignItems: "center",
   gap: "$3",

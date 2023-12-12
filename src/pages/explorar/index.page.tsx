@@ -18,6 +18,9 @@ import Image from "next/image";
 import bookImg from "../../../public/assets/Book3.png";
 import { Stars } from "@/components/Stars";
 
+import * as Dialog from "@radix-ui/react-dialog";
+import { BookModal } from "@/components/BookModal";
+
 export default function Explore() {
   const searchBookForm = (
     <SearchBookForm>
@@ -47,72 +50,100 @@ export default function Explore() {
           <Tag>Suspense</Tag>
         </GenreTags>
 
-        <Books>
-          <Book>
-            <Image src={bookImg} alt="" width={108} height={152} />
+        <Dialog.Root>
+          <Books>
+            <Dialog.Trigger asChild>
+              <Book>
+                <Image src={bookImg} alt="" width={108} height={152} />
 
-            <BookInfo>
-              <h4>Código Limpo</h4>
-              <span>Robert C. Martin</span>
+                <BookInfo>
+                  <h4>Código Limpo</h4>
+                  <span>Robert C. Martin</span>
 
-              <BookStars>
-                <Stars amount={5} />
-              </BookStars>
-            </BookInfo>
-          </Book>
+                  <BookStars>
+                    <Stars amount={5} />
+                  </BookStars>
+                </BookInfo>
+              </Book>
+            </Dialog.Trigger>
 
-          <Book>
-            <Image src={bookImg} alt="" width={108} height={152} />
+            <Dialog.Trigger asChild>
+              <Book>
+                <Image src={bookImg} alt="" width={108} height={152} />
 
-            <BookInfo>
-              <h4>Código Limpo</h4>
-              <span>Robert C. Martin</span>
+                <BookInfo>
+                  <h4>Código Limpo</h4>
+                  <span>Robert C. Martin</span>
 
-              <BookStars>
-                <Stars amount={5} />
-              </BookStars>
-            </BookInfo>
-          </Book>
+                  <BookStars>
+                    <Stars amount={5} />
+                  </BookStars>
+                </BookInfo>
+              </Book>
+            </Dialog.Trigger>
 
-          <Book>
-            <Image src={bookImg} alt="" width={108} height={152} />
+            <Dialog.Trigger asChild>
+              <Book>
+                <Image src={bookImg} alt="" width={108} height={152} />
 
-            <BookInfo>
-              <h4>Código Limpo</h4>
-              <span>Robert C. Martin</span>
+                <BookInfo>
+                  <h4>Código Limpo</h4>
+                  <span>Robert C. Martin</span>
 
-              <BookStars>
-                <Stars amount={5} />
-              </BookStars>
-            </BookInfo>
-          </Book>
+                  <BookStars>
+                    <Stars amount={5} />
+                  </BookStars>
+                </BookInfo>
+              </Book>
+            </Dialog.Trigger>
 
-          <Book>
-            <Image src={bookImg} alt="" width={108} height={152} />
+            <Dialog.Trigger asChild>
+              <Book>
+                <Image src={bookImg} alt="" width={108} height={152} />
 
-            <BookInfo>
-              <h4>Código Limpo</h4>
-              <span>Robert C. Martin</span>
+                <BookInfo>
+                  <h4>Código Limpo</h4>
+                  <span>Robert C. Martin</span>
 
-              <BookStars>
-                <Stars amount={5} />
-              </BookStars>
-            </BookInfo>
-          </Book>
+                  <BookStars>
+                    <Stars amount={5} />
+                  </BookStars>
+                </BookInfo>
+              </Book>
+            </Dialog.Trigger>
 
-          <Book>
-            <Image src={bookImg} alt="" width={108} height={152} />
+            <Dialog.Trigger asChild>
+              <Book>
+                <Image src={bookImg} alt="" width={108} height={152} />
 
-            <BookInfo>
-              <h4>Código Limpo</h4>
-              <span>Robert C. Martin</span>
+                <BookInfo>
+                  <h4>Código Limpo</h4>
+                  <span>Robert C. Martin</span>
 
-              <BookStars>
-                <Stars amount={5} />
-              </BookStars>
-            </BookInfo>
-          </Book>
-        </Books>
+                  <BookStars>
+                    <Stars amount={5} />
+                  </BookStars>
+                </BookInfo>
+              </Book>
+            </Dialog.Trigger>
+            <Dialog.Trigger asChild>
+              <Book>
+                <Image src={bookImg} alt="" width={108} height={152} />
+
+                <BookInfo>
+                  <h4>Código Limpo</h4>
+                  <span>Robert C. Martin</span>
+
+                  <BookStars>
+                    <Stars amount={5} />
+                  </BookStars>
+                </BookInfo>
+              </Book>
+            </Dialog.Trigger>
+          </Books>
+
+          <BookModal />
+        </Dialog.Root>
       </ExploreContainer>
     </>
   );

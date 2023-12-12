@@ -5,7 +5,6 @@ import {
   BookCards,
   BookInfo,
   BookStars,
-  EvaluationCards,
   HomeContainer,
   LastReadingArea,
   LastReadingBookImage,
@@ -19,15 +18,16 @@ import {
   PopularBooks,
   PopularBooksHeading,
   SeeMoreButton,
+  ReviewCards,
 } from "./styles";
 import DefaultLayout from "@/components/DefaultLayout";
 import { Header } from "@/components/Header";
-import { EvaluationCard } from "@/components/EvaluationCard";
 import bookImg from "../../../public/assets/Book.png";
 import { CaretRight } from "phosphor-react";
 import popularBookImg from "../../../public/assets/Book2.png";
 import Image from "next/image";
 import { Stars } from "@/components/Stars";
+import { ReviewCard } from "@/components/ReviewCard";
 
 export default function Home() {
   return (
@@ -78,8 +78,8 @@ export default function Home() {
           <div>
             <span>Avaliações mais recentes</span>
 
-            <EvaluationCards>
-              <EvaluationCard
+            <ReviewCards>
+              <ReviewCard
                 userName="Jaxson Dias"
                 publishedAt={new Date(2023, 2, 26)}
                 bookTitle="O Hobbit"
@@ -89,7 +89,7 @@ export default function Home() {
                 starsNumber={4}
               />
 
-              <EvaluationCard
+              <ReviewCard
                 userName="Jaxson Dias"
                 publishedAt={new Date(2023, 2, 26)}
                 bookTitle="O Hobbit"
@@ -99,7 +99,7 @@ export default function Home() {
                 starsNumber={5}
               />
 
-              <EvaluationCard
+              <ReviewCard
                 userName="Jaxson Dias"
                 publishedAt={new Date(2023, 10, 26)}
                 bookTitle="O Hobbit"
@@ -109,7 +109,7 @@ export default function Home() {
                 starsNumber={3}
               />
 
-              <EvaluationCard
+              <ReviewCard
                 userName="Jaxson Dias"
                 publishedAt={new Date(2023, 8, 26)}
                 bookTitle="O Hobbit"
@@ -118,7 +118,7 @@ export default function Home() {
                 bookImgPath={bookImg.src}
                 starsNumber={2}
               />
-            </EvaluationCards>
+            </ReviewCards>
           </div>
         </MostRecentEvaluations>
 

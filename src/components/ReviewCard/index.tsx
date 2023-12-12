@@ -19,7 +19,7 @@ import { Star } from "phosphor-react";
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
-interface EvaluationCardProps {
+interface ReviewCardProps {
   userName: string;
   publishedAt: Date;
   starsNumber: number;
@@ -30,7 +30,7 @@ interface EvaluationCardProps {
   bookImgPath: string;
 }
 
-export function EvaluationCard({
+export function ReviewCard({
   userName,
   publishedAt,
   starsNumber,
@@ -38,7 +38,7 @@ export function EvaluationCard({
   bookAuthor,
   bookDescription,
   bookImgPath,
-}: EvaluationCardProps) {
+}: ReviewCardProps) {
   const publishedDate = format(publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
     locale: ptBR,
   });
