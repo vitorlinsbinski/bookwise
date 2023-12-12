@@ -20,6 +20,7 @@ import {
   SidebarToggle,
 } from "./styles";
 import Image from "next/image";
+import * as Dialog from "@radix-ui/react-dialog";
 
 import logoImg from "../../../public/bookwise-complete-logo.svg";
 import logoImgReduced from "../../../public/bookwise-logo.svg";
@@ -29,6 +30,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import profileImg from "../../../public/assets/avatarExample.png";
+import { LoginModal } from "../LogInModal";
 
 interface SidebarProps {
   isSignedIn: boolean;
@@ -92,9 +94,15 @@ export function Sidebar({ isSignedIn }: SidebarProps) {
       </Navbar>
 
       {!isSignedIn ? (
-        <LogInButton isOpen={isSidebarOpen}>
-          <span>Fazer login</span> <SignIn size={20} />
-        </LogInButton>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <LogInButton isOpen={isSidebarOpen}>
+              <span>Fazer login</span> <SignIn size={20} />
+            </LogInButton>
+          </Dialog.Trigger>
+
+          <LoginModal />
+        </Dialog.Root>
       ) : (
         <LogOutButton isOpen={isSidebarOpen}>
           <Avatar imgPath={profileImg.src} size={32} />

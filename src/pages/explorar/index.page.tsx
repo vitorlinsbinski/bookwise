@@ -11,7 +11,7 @@ import {
   SearchBookInput,
   Tag,
 } from "./styles";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import DefaultLayout from "@/components/DefaultLayout";
 import { MagnifyingGlass } from "phosphor-react";
 import Image from "next/image";
@@ -21,7 +21,58 @@ import { Stars } from "@/components/Stars";
 import * as Dialog from "@radix-ui/react-dialog";
 import { BookModal } from "@/components/BookModal";
 
+type genres =
+  | "Tudo"
+  | "Computação"
+  | "Educação"
+  | "Fantasia"
+  | "Ficção Científica"
+  | "Horror"
+  | "HQs"
+  | "Suspense";
+
+const allGenres = [
+  {
+    id: "0",
+    genre: "Tudo",
+  },
+
+  {
+    id: "1",
+    genre: "Computação",
+  },
+
+  {
+    id: "2",
+    genre: "Educação",
+  },
+
+  {
+    id: "3",
+    genre: "Fantasia",
+  },
+
+  {
+    id: "4",
+    genre: "Ficção Científica",
+  },
+  {
+    id: "5",
+    genre: "Horror",
+  },
+  {
+    id: "6",
+    genre: "HQs",
+  },
+  {
+    id: "7",
+    genre: "Suspense",
+  },
+];
+
 export default function Explore() {
+  const [selectedGenre, setSelectedGenre] = useState<genres>("Tudo");
+
   const searchBookForm = (
     <SearchBookForm>
       <SearchBookBox>
@@ -40,14 +91,16 @@ export default function Explore() {
         children={searchBookForm}></Header>
       <ExploreContainer>
         <GenreTags>
-          <Tag>Tudo</Tag>
-          <Tag>Computação</Tag>
-          <Tag>Educação</Tag>
-          <Tag>Fantasia</Tag>
-          <Tag>Ficção Científica</Tag>
-          <Tag>Horror</Tag>
-          <Tag>HQs</Tag>
-          <Tag>Suspense</Tag>
+          {allGenres.map((item) => {
+            return (
+              <Tag
+                key={item.id}
+                onClick={() => setSelectedGenre(item.genre as genres)}
+                active={selectedGenre === item.genre}>
+                {item.genre}
+              </Tag>
+            );
+          })}
         </GenreTags>
 
         <Dialog.Root>

@@ -120,8 +120,9 @@ export const Tag = styled("div", {
   variants: {
     active: {
       true: {
-        backgroundColor: "$purple100",
+        backgroundColor: "$purple200",
         color: "$gray100",
+        borderColor: "transparent",
       },
     },
   },

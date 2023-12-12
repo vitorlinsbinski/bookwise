@@ -9,7 +9,7 @@ interface LayoutProps {
 export default function DefaultLayout({ children }: LayoutProps) {
   return (
     <LayoutContainer>
-      <Sidebar isSignedIn={true} />
+      <Sidebar isSignedIn={false} />
       {children}
     </LayoutContainer>
   );

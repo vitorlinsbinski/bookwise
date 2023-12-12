@@ -412,6 +412,20 @@ export const CommentHeadingLeft = styled("div", {
     "&:last-child": {
       display: "flex",
       flexDirection: "column",
+
+      strong: {
+        fontSize: "$md",
+        color: "$gray100",
+        lineHeight: "$short",
+        fontWeight: "$bold",
+      },
+
+      span: {
+        fontSize: "$sm",
+        color: "$gray400",
+        lineHeight: "$base",
+        fontWeight: "$regular",
+      },
     },
   },
 });

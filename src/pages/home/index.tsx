@@ -28,6 +28,8 @@ import popularBookImg from "../../../public/assets/Book2.png";
 import Image from "next/image";
 import { Stars } from "@/components/Stars";
 import { ReviewCard } from "@/components/ReviewCard";
+import * as Dialog from "@radix-ui/react-dialog";
+import { BookModal } from "@/components/BookModal";
 
 export default function Home() {
   return (
@@ -131,67 +133,121 @@ export default function Home() {
             </SeeMoreButton>
           </PopularBooksHeading>
 
-          <BookCards>
-            <BookCard>
-              <Image src={popularBookImg.src} alt="" width={64} height={94} />
+          <Dialog.Root>
+            <BookCards>
+              <Dialog.Trigger asChild>
+                <BookCard>
+                  <Image
+                    src={popularBookImg.src}
+                    alt=""
+                    width={64}
+                    height={94}
+                  />
 
-              <BookAbout>
-                <BookInfo>
-                  <h4>A revolução dos bichos</h4>
-                  <span>George Orwell</span>
-                </BookInfo>
+                  <BookAbout>
+                    <BookInfo>
+                      <h4>A revolução dos bichos</h4>
+                      <span>George Orwell</span>
+                    </BookInfo>
 
-                <BookStars>
-                  <Stars amount={4} />
-                </BookStars>
-              </BookAbout>
-            </BookCard>
+                    <BookStars>
+                      <Stars amount={4} />
+                    </BookStars>
+                  </BookAbout>
+                </BookCard>
+              </Dialog.Trigger>
 
-            <BookCard>
-              <Image src={popularBookImg.src} alt="" width={64} height={94} />
+              <Dialog.Trigger asChild>
+                <BookCard>
+                  <Image
+                    src={popularBookImg.src}
+                    alt=""
+                    width={64}
+                    height={94}
+                  />
 
-              <BookAbout>
-                <BookInfo>
-                  <h4>A revolução dos bichos</h4>
-                  <span>George Orwell</span>
-                </BookInfo>
+                  <BookAbout>
+                    <BookInfo>
+                      <h4>A revolução dos bichos</h4>
+                      <span>George Orwell</span>
+                    </BookInfo>
 
-                <BookStars>
-                  <Stars amount={4} />
-                </BookStars>
-              </BookAbout>
-            </BookCard>
+                    <BookStars>
+                      <Stars amount={4} />
+                    </BookStars>
+                  </BookAbout>
+                </BookCard>
+              </Dialog.Trigger>
 
-            <BookCard>
-              <Image src={popularBookImg.src} alt="" width={64} height={94} />
+              <Dialog.Trigger asChild>
+                <BookCard>
+                  <Image
+                    src={popularBookImg.src}
+                    alt=""
+                    width={64}
+                    height={94}
+                  />
 
-              <BookAbout>
-                <BookInfo>
-                  <h4>A revolução dos bichos</h4>
-                  <span>George Orwell</span>
-                </BookInfo>
+                  <BookAbout>
+                    <BookInfo>
+                      <h4>A revolução dos bichos</h4>
+                      <span>George Orwell</span>
+                    </BookInfo>
 
-                <BookStars>
-                  <Stars amount={4} />
-                </BookStars>
-              </BookAbout>
-            </BookCard>
+                    <BookStars>
+                      <Stars amount={4} />
+                    </BookStars>
+                  </BookAbout>
+                </BookCard>
+              </Dialog.Trigger>
 
-            <BookCard>
-              <Image src={popularBookImg.src} alt="" width={64} height={94} />
+              <Dialog.Trigger asChild>
+                <BookCard>
+                  <Image
+                    src={popularBookImg.src}
+                    alt=""
+                    width={64}
+                    height={94}
+                  />
 
-              <BookAbout>
-                <BookInfo>
-                  <h4>A revolução dos bichos</h4>
-                  <span>George Orwell</span>
-                </BookInfo>
+                  <BookAbout>
+                    <BookInfo>
+                      <h4>A revolução dos bichos</h4>
+                      <span>George Orwell</span>
+                    </BookInfo>
 
-                <BookStars>
-                  <Stars amount={4} />
-                </BookStars>
-              </BookAbout>
-            </BookCard>
-          </BookCards>
+                    <BookStars>
+                      <Stars amount={4} />
+                    </BookStars>
+                  </BookAbout>
+                </BookCard>
+              </Dialog.Trigger>
+
+              <Dialog.Trigger asChild>
+                <BookCard>
+                  <Image
+                    src={popularBookImg.src}
+                    alt=""
+                    width={64}
+                    height={94}
+                  />
+
+                  <BookAbout>
+                    <BookInfo>
+                      <h4>A revolução dos bichos</h4>
+                      <span>George Orwell</span>
+                    </BookInfo>
+
+                    <BookStars>
+                      <Stars amount={4} />
+                    </BookStars>
+                  </BookAbout>
+                </BookCard>
+              </Dialog.Trigger>
+            </BookCards>
+
+            <BookModal />
+          </Dialog.Root>
         </PopularBooks>
       </HomeContainer>
     </>

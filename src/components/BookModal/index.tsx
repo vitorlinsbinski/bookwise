@@ -104,7 +104,7 @@ export function BookModal() {
             <button onClick={() => setIsCommentFormOpen((state) => !state)}>
               {isCommentFormOpen ? (
                 <>
-                  Cancelar <CaretUp size={16} />
+                  Fechar <CaretUp size={16} />
                 </>
               ) : (
                 <>
