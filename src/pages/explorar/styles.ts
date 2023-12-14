@@ -62,7 +62,7 @@ export const SearchBookInput = styled("input", {
   },
 });
 
-export const GenreTags = styled("div", {
+export const GenreTags = styled("section", {
   width: "100%",
   display: "flex",
   alignItems: "center",
@@ -128,7 +128,7 @@ export const Tag = styled("div", {
   },
 });
 
-export const Books = styled("div", {
+export const Books = styled("section", {
   display: "flex",
   alignItems: "center",
   gap: "$5",

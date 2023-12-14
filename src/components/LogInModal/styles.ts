@@ -1,5 +1,45 @@
-import { styled } from "@/styles/stitches.config";
+import { styled, keyframes } from "@/styles/stitches.config";
 import * as Dialog from "@radix-ui/react-dialog";
+
+const BottomToTop = keyframes({
+  "0%": {
+    opacity: 0,
+    transform: "translate(-50%, -47%)",
+  },
+  "100%": {
+    opacity: 1,
+    transform: "translate(-50%, -50%)",
+  },
+});
+
+const TopToBottom = keyframes({
+  "0%": {
+    opacity: 1,
+    transform: "translate(-50%, -50%)",
+  },
+  "100%": {
+    opacity: 0,
+    transform: "translate(-50%, -47%)",
+  },
+});
+
+const FadeIn = keyframes({
+  "0%": {
+    opacity: 0,
+  },
+  "100%": {
+    opacity: 1,
+  },
+});
+
+const FadeOut = keyframes({
+  "100%": {
+    opacity: 0,
+  },
+  "0%": {
+    opacity: 1,
+  },
+});
 
 export const Overlay = styled(Dialog.Overlay, {
   width: "100vw",
@@ -8,6 +48,14 @@ export const Overlay = styled(Dialog.Overlay, {
   inset: 0,
   background: "rgba(0, 0, 0, 0.60)",
   zIndex: 2023,
+
+  "&[data-state='open']": {
+    animation: `${FadeIn} .3s`,
+  },
+
+  "&[data-state='closed']": {
+    animation: `${FadeOut} .3s`,
+  },
 });
 
 export const Content = styled(Dialog.Content, {
@@ -31,6 +79,19 @@ export const Content = styled(Dialog.Content, {
     fontWeight: "$regular",
     lineHeight: "$short",
     color: "$gray200",
+  },
+
+  "&[data-state='open']": {
+    animation: `${BottomToTop} .3s ease`,
+  },
+
+  "&[data-state='closed']": {
+    animation: `${TopToBottom} .2s ease`,
+  },
+
+  "@media(max-width: 540px)": {
+    width: "94vw",
+    padding: "3.5rem 1.5rem",
   },
 });
 
@@ -60,4 +121,8 @@ export const LoginButtons = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "$4",
+
+  "@media(max-width: 720px)": {
+    marginTop: "$6",
+  },
 });

@@ -90,6 +90,11 @@ export const Content = styled(Dialog.Content, {
   "&[data-state='closed']": {
     animation: `${LeftToRight} .2s ease`,
   },
+
+  "@media(max-width: 720px)": {
+    width: "100%",
+    padding: "2rem 1.5rem",
+  },
 });
 
 export const CloseButton = styled(Dialog.Close, {
@@ -111,6 +116,15 @@ export const CloseButton = styled(Dialog.Close, {
       color: "$gray100",
     },
   },
+
+  "@media(max-width: 720px)": {
+    top: 10,
+    right: 20,
+    backgroundColor: "$gray600",
+    padding: "$3",
+    borderRadius: "$sm",
+    position: "fixed",
+  },
 });
 
 export const BookCard = styled("div", {
@@ -118,6 +132,10 @@ export const BookCard = styled("div", {
   padding: "$6 $8 $4 $8",
   backgroundColor: "$gray700",
   borderRadius: "$sm",
+
+  "@media(max-width: 720px)": {
+    marginTop: "3rem",
+  },
 });
 
 export const BookCardTop = styled("div", {
@@ -125,6 +143,11 @@ export const BookCardTop = styled("div", {
   gap: "$8",
   paddingBottom: "$10",
   borderBottom: "1px solid $gray600",
+
+  "@media(max-width: 720px)": {
+    flexDirection: "column",
+    alignItems: "center",
+  },
 });
 
 export const BookCardTopImage = styled("div", {
@@ -296,9 +319,16 @@ export const ReviewFormHeading = styled("div", {
 
         svg: {
           color: "$purple100",
+          position: "relative",
         },
       },
     },
+  },
+
+  "@media(max-width: 720px)": {
+    flexDirection: "column",
+    alignItems: "start",
+    gap: "$4",
   },
 });
 
@@ -336,7 +366,7 @@ export const ReviewActions = styled("div", {
   gap: "$2",
 });
 
-export const ReviewButton = styled("div", {
+export const ReviewButton = styled("button", {
   width: "2.5rem",
   height: "2.5rem",
   display: "flex",
@@ -401,6 +431,12 @@ export const CommentHeading = styled("div", {
   justifyContent: "space-between",
 
   marginBottom: "$5",
+
+  "@media(max-width: 720px)": {
+    flexDirection: "column",
+    alignItems: "start",
+    gap: "$5",
+  },
 });
 
 export const CommentHeadingLeft = styled("div", {
@@ -439,5 +475,14 @@ export const CommentHeadingRight = styled("div", {
     color: "$purple100",
     width: "1rem",
     height: "1rem",
+  },
+});
+
+export const ErrorTextMessage = styled("div", {
+  span: {
+    fontSize: "$sm",
+    color: "$gray400",
+    lineHeight: "$base",
+    fontWeight: "$regular",
   },
 });

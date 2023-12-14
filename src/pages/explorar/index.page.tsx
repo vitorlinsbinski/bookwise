@@ -20,6 +20,9 @@ import { Stars } from "@/components/Stars";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { BookModal } from "@/components/BookModal";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type genres =
   | "Tudo"
@@ -70,13 +73,35 @@ const allGenres = [
   },
 ];
 
+const searchBookFormSchema = z.object({
+  query: z.string().min(1, { message: "Digite algum livro ou autor" }),
+});
+
+type SearchBookFormData = z.infer<typeof searchBookFormSchema>;
+
 export default function Explore() {
   const [selectedGenre, setSelectedGenre] = useState<genres>("Tudo");
 
+  function handleSearchBookForm(data: SearchBookFormData) {
+    console.log(data);
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SearchBookFormData>({
+    resolver: zodResolver(searchBookFormSchema),
+  });
+
   const searchBookForm = (
-    <SearchBookForm>
+    <SearchBookForm onSubmit={handleSubmit(handleSearchBookForm)}>
       <SearchBookBox>
-        <SearchBookInput type="text" placeholder="Buscar livro ou autor" />
+        <SearchBookInput
+          type="text"
+          placeholder="Buscar livro ou autor"
+          {...register("query")}
+        />
 
         <MagnifyingGlass size={20} />
       </SearchBookBox>

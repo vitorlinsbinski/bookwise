@@ -18,6 +18,7 @@ import { Star } from "phosphor-react";
 
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { Stars } from "../Stars";
 
 interface ReviewCardProps {
   userName: string;
@@ -52,12 +53,6 @@ export function ReviewCard({
     publishedDateFormatted.charAt(0).toUpperCase() +
     publishedDateFormatted.slice(1);
 
-  const filledStars = Array(starsNumber).fill(<Star size={16} weight="fill" />);
-
-  const emptyStars = Array(5 - starsNumber).fill(<Star size={16} />);
-
-  const allStars = filledStars.concat(emptyStars);
-
   return (
     <CardContainer>
       <ProfileArea>
@@ -71,7 +66,9 @@ export function ReviewCard({
           </PersonaInfo>
         </Persona>
 
-        <RatingContainer>{allStars}</RatingContainer>
+        <RatingContainer>
+          <Stars amount={4} />
+        </RatingContainer>
       </ProfileArea>
 
       <BookArea>

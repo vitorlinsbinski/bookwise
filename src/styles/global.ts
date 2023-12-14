@@ -9,6 +9,12 @@ export const globalStyles = globalCss({
     textDecoration: "none",
   },
 
+  html: {
+    "@media(max-width: 720px)": {
+      fontSize: "90%",
+    },
+  },
+
   body: {
     backgroundColor: "$gray800",
     color: "$gray100",

@@ -22,6 +22,7 @@ import {
   CommentHeading,
   CommentHeadingLeft,
   CommentHeadingRight,
+  ErrorTextMessage,
 } from "./styles";
 import {
   BookmarkSimple,
@@ -37,12 +38,43 @@ import { Stars } from "../Stars";
 import { Avatar } from "../Avatar";
 import avatarImg from "../../../public/assets/Avatar.png";
 import { useState } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+const userReviewFormSchema = z.object({
+  review: z.string().min(1, { message: "Digite sua avaliação" }),
+  starsAmount: z
+    .number()
+    .min(1, { message: "Selecione a quantidade de estrelas" })
+    .max(5, { message: "Selecione a quantidade de estrelas" }),
+});
+
+type UserReviewFormData = z.infer<typeof userReviewFormSchema>;
 
 export function BookModal() {
-  const [starsAmount, setStarsAmount] = useState(0);
   const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
 
-  console.log(isCommentFormOpen);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    watch,
+  } = useForm<UserReviewFormData>({
+    resolver: zodResolver(userReviewFormSchema),
+    defaultValues: {
+      starsAmount: 0,
+    },
+  });
+
+  function handleStarClick(stars: number) {
+    setValue("starsAmount", stars);
+  }
+
+  function handleUserReviewForm(data: UserReviewFormData) {
+    console.log(data);
+  }
 
   return (
     <Dialog.Portal>
@@ -115,7 +147,7 @@ export function BookModal() {
           </ReviewsHeading>
 
           {isCommentFormOpen && (
-            <ReviewForm onSubmit={(e) => e.preventDefault()}>
+            <ReviewForm onSubmit={handleSubmit(handleUserReviewForm)}>
               <ReviewFormHeading>
                 <div>
                   <Avatar size={40} imgPath={avatarImg.src} />
@@ -124,50 +156,47 @@ export function BookModal() {
                 </div>
 
                 <div>
-                  <button onClick={() => setStarsAmount(1)}>
-                    <Star
-                      size={28}
-                      weight={starsAmount >= 1 ? "fill" : "regular"}
-                    />
-                  </button>
-                  <button onClick={() => setStarsAmount(2)}>
-                    <Star
-                      size={28}
-                      weight={starsAmount >= 2 ? "fill" : "regular"}
-                    />
-                  </button>
-                  <button onClick={() => setStarsAmount(3)}>
-                    <Star
-                      size={28}
-                      weight={starsAmount >= 3 ? "fill" : "regular"}
-                    />
-                  </button>
-                  <button onClick={() => setStarsAmount(4)}>
-                    <Star
-                      size={28}
-                      weight={starsAmount >= 4 ? "fill" : "regular"}
-                    />
-                  </button>
-                  <button onClick={() => setStarsAmount(5)}>
-                    <Star
-                      size={28}
-                      weight={starsAmount >= 5 ? "fill" : "regular"}
-                    />
-                  </button>
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <button
+                      onClick={() => handleStarClick(index + 1)}
+                      key={index + 1}>
+                      <Star
+                        size={28}
+                        weight={
+                          watch("starsAmount") >= index + 1 ? "fill" : "regular"
+                        }
+                      />
+                    </button>
+                  ))}
                 </div>
               </ReviewFormHeading>
 
-              <ReviewTextArea placeholder="Escreva sua avaliação" />
+              <ReviewTextArea
+                placeholder="Escreva sua avaliação"
+                {...register("review")}
+              />
 
               <ReviewActions>
                 <ReviewButton onClick={() => setIsCommentFormOpen(false)}>
                   <X size={24} />
                 </ReviewButton>
 
-                <ReviewButton>
+                <ReviewButton type="submit">
                   <Check size={24} />
                 </ReviewButton>
               </ReviewActions>
+
+              {errors.review && (
+                <ErrorTextMessage>
+                  <span>{errors.review.message}</span>
+                </ErrorTextMessage>
+              )}
+
+              {errors.starsAmount && (
+                <ErrorTextMessage>
+                  <span>{errors.starsAmount.message}</span>
+                </ErrorTextMessage>
+              )}
             </ReviewForm>
           )}
 

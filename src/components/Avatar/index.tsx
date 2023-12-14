@@ -8,8 +8,6 @@ interface AvatarProps {
 }
 
 export function Avatar({ imgPath = "", size }: AvatarProps) {
-  console.log(imgPath);
-
   return (
     <AvatarContainer css={{ "--size": `${size / 16}rem` }}>
       <Image src={imgPath} alt="" width={size} height={size} />
