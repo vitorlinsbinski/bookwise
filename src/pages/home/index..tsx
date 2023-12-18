@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import {
   BookAbout,
   BookCard,
@@ -30,8 +30,40 @@ import { Stars } from "@/components/Stars";
 import { ReviewCard } from "@/components/ReviewCard";
 import * as Dialog from "@radix-ui/react-dialog";
 import { BookModal } from "@/components/BookModal";
+import { GetServerSideProps, GetStaticProps } from "next";
+import { api } from "@/lib/axios";
 
-export default function Home() {
+interface User {
+  id: string;
+  name: string;
+  avatarUrl: string;
+}
+
+interface Book {
+  id: string;
+  name: string;
+  author: string;
+  coverUrl: string;
+}
+
+interface Rating {
+  id: string;
+  rate: number;
+  description: string;
+  created_at: Date;
+  book: Book;
+  user: User;
+}
+
+interface HomeProps {
+  initialLastRatings: Rating[];
+}
+
+export default function Home({ initialLastRatings }: HomeProps) {
+  const [lastRatings, setLastRatings] = useState<Rating[]>(initialLastRatings);
+
+  console.log(lastRatings);
+
   return (
     <>
       <Header route="home" title="Início"></Header>
@@ -246,7 +278,7 @@ export default function Home() {
               </Dialog.Trigger>
             </BookCards>
 
-            <BookModal />
+            <BookModal bookId="" />
           </Dialog.Root>
         </PopularBooks>
       </HomeContainer>
@@ -256,4 +288,27 @@ export default function Home() {
 
 Home.getLayout = function (page: ReactElement) {
   return <DefaultLayout>{page}</DefaultLayout>;
+};
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const fetchLastRatings = async () => {
+    try {
+      const { data } = await api.get("/books/ratings/lastRatings");
+      console.log("DATA", data);
+      return data;
+    } catch (error) {
+      console.log("Error fetching last ratings: ", error);
+
+      return [];
+    }
+  };
+
+  const initialLastRatings = await fetchLastRatings();
+  console.log("initialLastRatings", initialLastRatings);
+
+  return {
+    props: {
+      initialLastRatings,
+    },
+  };
 };

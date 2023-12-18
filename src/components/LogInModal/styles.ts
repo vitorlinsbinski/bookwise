@@ -90,7 +90,7 @@ export const Content = styled(Dialog.Content, {
   },
 
   "@media(max-width: 540px)": {
-    width: "94vw",
+    width: "90vw",
     padding: "3.5rem 1.5rem",
   },
 });

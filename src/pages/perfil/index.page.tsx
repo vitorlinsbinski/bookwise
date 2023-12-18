@@ -201,7 +201,7 @@ export default function Profile() {
               </Review>
             </AllReviews>
 
-            <BookModal />
+            <BookModal bookId="" />
           </Dialog.Root>
         </ProfileReviews>
 
