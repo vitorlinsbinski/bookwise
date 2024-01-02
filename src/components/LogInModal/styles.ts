@@ -47,7 +47,7 @@ export const Overlay = styled(Dialog.Overlay, {
   position: "fixed",
   inset: 0,
   background: "rgba(0, 0, 0, 0.60)",
-  zIndex: 2023,
+  zIndex: 2024,
 
   "&[data-state='open']": {
     animation: `${FadeIn} .3s`,

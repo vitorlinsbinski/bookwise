@@ -12,16 +12,16 @@ import {
 } from "./styles";
 import { Avatar } from "../Avatar";
 
-import bookImg from "../../../public/assets/Book.png";
-import avatarImg from "../../../public/assets/Avatar.png";
-import { Star } from "phosphor-react";
-
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Stars } from "../Stars";
+import formatDateFromNow from "@/utils/dateFormatterFromNow";
+import formatDate from "@/utils/dateFormatter";
 
 interface ReviewCardProps {
   userName: string;
+  userImagePath: string;
+
   publishedAt: Date;
   starsNumber: number;
 
@@ -39,55 +39,43 @@ export function ReviewCard({
   bookAuthor,
   bookDescription,
   bookImgPath,
+  userImagePath,
 }: ReviewCardProps) {
-  const publishedDate = format(publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
-    locale: ptBR,
-  });
+  const publishDate = formatDate(publishedAt);
 
-  const publishedDateFormatted = formatDistanceToNow(publishedAt, {
-    addSuffix: true,
-    locale: ptBR,
-  });
-
-  const publishedDateCapitalized =
-    publishedDateFormatted.charAt(0).toUpperCase() +
-    publishedDateFormatted.slice(1);
+  const publishDateDifferenceFromNow = formatDateFromNow(publishedAt);
 
   return (
-    <CardContainer>
+    <CardContainer onClick={() => console.log(userName)}>
       <ProfileArea>
         <Persona>
-          <Avatar imgPath={avatarImg.src} size={40} />
+          <Avatar imgPath={userImagePath} size={40} />
+
           <PersonaInfo>
             <h4>{userName}</h4>
-            <time title={publishedDate} dateTime={publishedAt.toISOString()}>
-              {publishedDateCapitalized}
+            <time title={publishDate} dateTime={publishedAt.toISOString()}>
+              {publishDateDifferenceFromNow}
             </time>
           </PersonaInfo>
         </Persona>
 
         <RatingContainer>
-          <Stars amount={4} />
+          <Stars amount={starsNumber} />
         </RatingContainer>
       </ProfileArea>
 
       <BookArea>
         <ImageBookContainer>
-          <Image src={bookImg} alt="" width={108} height={152} />
+          <Image src={bookImgPath} alt="" width={108} height={152} />
         </ImageBookContainer>
 
         <AboutBook>
           <Title>
-            <h3>O Hobbit</h3>
-            <span>J.R.R. Tolkien</span>
+            <h3>{bookTitle}</h3>
+            <span>{bookAuthor}</span>
           </Title>
 
-          <p>
-            Semper et sapien proin vitae nisi. Feugiat neque integer donec et
-            aenean posuere amet ultrices. Cras fermentum id pulvinar varius leo
-            a in. Amet libero pharetra nunc elementum fringilla velit ipsum. Sed
-            vulputate massa velit nibh
-          </p>
+          <p>{bookDescription}</p>
         </AboutBook>
       </BookArea>
     </CardContainer>

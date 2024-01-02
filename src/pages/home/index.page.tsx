@@ -29,9 +29,10 @@ import Image from "next/image";
 import { Stars } from "@/components/Stars";
 import { ReviewCard } from "@/components/ReviewCard";
 import * as Dialog from "@radix-ui/react-dialog";
-import { BookModal } from "@/components/BookModal";
+import { BookModal } from "@/components/BookModal/BookModal";
 import { GetServerSideProps, GetStaticProps } from "next";
 import { api } from "@/lib/axios";
+import Link from "next/link";
 
 interface User {
   id: string;
@@ -61,8 +62,6 @@ interface HomeProps {
 
 export default function Home({ initialLastRatings }: HomeProps) {
   const [lastRatings, setLastRatings] = useState<Rating[]>(initialLastRatings);
-
-  console.log(lastRatings);
 
   return (
     <>
@@ -121,36 +120,7 @@ export default function Home({ initialLastRatings }: HomeProps) {
                 bookDescription="Semper et sapien proin vitae nisi. Feugiat neque integer donec et aenean posuere amet ultrices. Cras fermentum id pulvinar varius leo a in. Amet libero pharetra nunc elementum fringilla velit ipsum. Sed vulputate massa velit nibh."
                 bookImgPath={bookImg.src}
                 starsNumber={4}
-              />
-
-              <ReviewCard
-                userName="Jaxson Dias"
-                publishedAt={new Date(2023, 2, 26)}
-                bookTitle="O Hobbit"
-                bookAuthor="J.R.R. Tolkien"
-                bookDescription="Semper et sapien proin vitae nisi. Feugiat neque integer donec et aenean posuere amet ultrices. Cras fermentum id pulvinar varius leo a in. Amet libero pharetra nunc elementum fringilla velit ipsum. Sed vulputate massa velit nibh."
-                bookImgPath={bookImg.src}
-                starsNumber={5}
-              />
-
-              <ReviewCard
-                userName="Jaxson Dias"
-                publishedAt={new Date(2023, 10, 26)}
-                bookTitle="O Hobbit"
-                bookAuthor="J.R.R. Tolkien"
-                bookDescription="Semper et sapien proin vitae nisi. Feugiat neque integer donec et aenean posuere amet ultrices. Cras fermentum id pulvinar varius leo a in. Amet libero pharetra nunc elementum fringilla velit ipsum. Sed vulputate massa velit nibh."
-                bookImgPath={bookImg.src}
-                starsNumber={3}
-              />
-
-              <ReviewCard
-                userName="Jaxson Dias"
-                publishedAt={new Date(2023, 8, 26)}
-                bookTitle="O Hobbit"
-                bookAuthor="J.R.R. Tolkien"
-                bookDescription="Semper et sapien proin vitae nisi. Feugiat neque integer donec et aenean posuere amet ultrices. Cras fermentum id pulvinar varius leo a in. Amet libero pharetra nunc elementum fringilla velit ipsum. Sed vulputate massa velit nibh."
-                bookImgPath={bookImg.src}
-                starsNumber={2}
+                userImagePath={""}
               />
             </ReviewCards>
           </div>
@@ -160,9 +130,11 @@ export default function Home({ initialLastRatings }: HomeProps) {
           <PopularBooksHeading>
             <span>Livros populares</span>
 
-            <SeeMoreButton>
-              <span>Ver todos</span> <CaretRight size={16} />
-            </SeeMoreButton>
+            <Link href={"/explorar"}>
+              <SeeMoreButton>
+                <span>Ver todos</span> <CaretRight size={16} />
+              </SeeMoreButton>
+            </Link>
           </PopularBooksHeading>
 
           <Dialog.Root>
@@ -294,7 +266,6 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const fetchLastRatings = async () => {
     try {
       const { data } = await api.get("/books/ratings/lastRatings");
-      console.log("DATA", data);
       return data;
     } catch (error) {
       console.log("Error fetching last ratings: ", error);
@@ -304,7 +275,6 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   };
 
   const initialLastRatings = await fetchLastRatings();
-  console.log("initialLastRatings", initialLastRatings);
 
   return {
     props: {

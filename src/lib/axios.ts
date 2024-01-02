@@ -5,10 +5,8 @@ const baseURL =
     ? "http://192.168.0.42:3000"
     : "http://localhost:3000";
 
-console.log(baseURL);
-
 export const api = axios.create({
-  baseURL: `http://192.168.0.42:3000/api`,
+  baseURL: `${baseURL}/api`,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

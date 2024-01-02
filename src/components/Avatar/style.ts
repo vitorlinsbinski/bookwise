@@ -5,12 +5,12 @@ export const AvatarContainer = styled("div", {
   alignItems: "center",
   justifyContent: "center",
 
-  width: "var(--size)",
+  width: "calc(var(--size) + 2px)",
 
-  height: "var(--size)",
-
-  position: "relative",
-  zIndex: 1,
+  height: "calc(var(--size) + 2px)",
+  borderRadius: "$full",
+  background: "$gradient-vertical",
+  padding: 2,
 
   img: {
     width: "100%",
@@ -19,17 +19,5 @@ export const AvatarContainer = styled("div", {
     borderRadius: "$full",
     position: "relative",
     zIndex: 1,
-  },
-
-  "&::after": {
-    content: "",
-    position: "absolute",
-    top: -2.3,
-    left: -1.7,
-    width: "calc(var(--size) + 4px)",
-    height: "calc(var(--size) + 4px)",
-    background: "$gradient-vertical",
-    borderRadius: "$full",
-    zIndex: 0,
   },
 });

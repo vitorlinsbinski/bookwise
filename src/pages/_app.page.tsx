@@ -3,6 +3,7 @@ import { Nunito_Sans } from "next/font/google";
 import { globalStyles } from "@/styles/global";
 import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
+import { SessionProvider } from "next-auth/react";
 
 const nunito = Nunito_Sans({
   weight: ["400", "500", "700"],
@@ -19,12 +20,19 @@ type AppPropsWithLayout = AppProps & {
 
 globalStyles();
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return getLayout(
-    <div className={nunito.className}>
-      <Component {...pageProps} />
-    </div>
+  return (
+    <SessionProvider session={session}>
+      {getLayout(
+        <div className={nunito.className}>
+          <Component {...pageProps} />
+        </div>
+      )}
+    </SessionProvider>
   );
 }

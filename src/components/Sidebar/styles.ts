@@ -245,7 +245,7 @@ export const LogOutButton = styled("button", {
 
   "&:hover": {
     span: {
-      color: "#F75A68",
+      color: "$gray300",
     },
   },
 

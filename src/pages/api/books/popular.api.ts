@@ -20,33 +20,34 @@ export default async function handler(
       return res.status(404).json({ error: "No books found." });
     }
 
-    const booksWithAverageRating = books?.map((book) => {
-      let averageRating = 0;
-
-      if (book.ratings.length !== 0) {
-        averageRating =
+    const booksSortedByNumberOfRatings = books
+      ?.sort((a, b) => {
+        return b.ratings.length - a.ratings.length;
+      })
+      .slice(0, 4)
+      .map((book) => {
+        const averageRating =
           book.ratings.reduce((acc, cur) => {
             return acc + cur.rate;
           }, 0) / book.ratings.length;
-      }
+        return {
+          ...book,
+          averageRating,
+        };
+      });
 
-      const {
-        ratings,
-        cover_url,
-        total_pages,
-        created_at,
-        ...booksWithoutRatings
-      } = book;
-
+    const popularBooksFormatted = booksSortedByNumberOfRatings.map((book) => {
       return {
-        ...booksWithoutRatings,
-        averageRating,
-        coverUrl: cover_url,
-        totalPages: total_pages,
+        id: book.id,
+        name: book.name,
+        author: book.author,
+        coverUrl: book.cover_url,
+        summary: book.summary,
+        averageRating: book.averageRating,
       };
     });
 
-    return res.status(200).json(booksWithAverageRating);
+    return res.status(200).json(popularBooksFormatted);
   } catch (error) {
     console.log("Error fetching books: ", error);
 

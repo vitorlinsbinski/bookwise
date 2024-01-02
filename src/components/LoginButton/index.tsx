@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 
 import { Button } from "./styles";
 import { RocketLaunch } from "phosphor-react";
+import { signIn } from "next-auth/react";
 
 type LoginType = "google" | "github" | "guest";
 
@@ -27,8 +28,14 @@ export function LoginButton({ text, loginType }: ButtonProps) {
       break;
   }
 
+  function handleSignIn(loginType: LoginType) {
+    if (loginType !== "guest") {
+      signIn(loginType);
+    }
+  }
+
   return (
-    <Button>
+    <Button onClick={() => handleSignIn(loginType)}>
       {iconComponent} <span>{text}</span>
     </Button>
   );

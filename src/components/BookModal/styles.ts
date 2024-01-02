@@ -1,4 +1,5 @@
 import { styled, keyframes, css } from "@/styles/stitches.config";
+import { SkeletonAnimation } from "@/styles/animations";
 
 import * as Dialog from "@radix-ui/react-dialog";
 
@@ -147,6 +148,7 @@ export const BookCardTop = styled("div", {
   "@media(max-width: 720px)": {
     flexDirection: "column",
     alignItems: "center",
+    textAlign: "center",
   },
 });
 
@@ -194,6 +196,12 @@ export const BookCardTopText = styled("div", {
       fontWeight: "$regular",
     },
   },
+
+  "@media(max-width: 720px)": {
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+  },
 });
 
 export const BookCardTopTextStars = styled("div", {
@@ -207,6 +215,10 @@ export const BookCardTopTextStars = styled("div", {
     color: "$purple100",
     width: "1.25rem",
     height: "1.25rem",
+  },
+
+  "@media(max-width: 720px)": {
+    margin: "0.7rem auto",
   },
 });
 
@@ -485,4 +497,62 @@ export const ErrorTextMessage = styled("div", {
     lineHeight: "$base",
     fontWeight: "$regular",
   },
+});
+
+export const SkeletonCard = styled("div", {
+  width: "100%",
+  padding: "$6 $8 $4 $8",
+  backgroundColor: "$gray700",
+  backgroundImage:
+    "linear-gradient(90deg, #181C2A 0%, #262C42 48.63%, #181C2A 100%)",
+  backgroundSize: "900px 100%",
+  backgroundRepeat: "no-repeat",
+  borderRadius: "$sm",
+  animation: `${SkeletonAnimation} .8s ease-in-out infinite`,
+  height: "25rem",
+  marginBottom: "5.5rem",
+
+  "@media(max-width: 720px)": {
+    marginTop: "3rem",
+  },
+});
+
+export const SkeletonComments = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "$6",
+  marginTop: "2rem",
+
+  span: {
+    fontSize: "$sm",
+    color: "$gray200",
+    lineHeight: "$base",
+    fontWeight: "$regular",
+  },
+});
+
+export const SkeletonComment = styled("div", {
+  width: "100%",
+  padding: "$6",
+  backgroundColor: "$gray700",
+  borderRadius: "$sm",
+  backgroundImage:
+    "linear-gradient(90deg, #181C2A 0%, #262C42 48.63%, #181C2A 100%)",
+  backgroundSize: "900px 100%",
+  backgroundRepeat: "no-repeat",
+  animation: `${SkeletonAnimation} .8s ease-in-out infinite`,
+  height: "4rem",
+});
+
+export const SkeletonImageBook = styled("div", {
+  width: "10.72rem",
+  height: "15.13rem",
+  borderRadius: "$sm",
+  overflow: "hidden",
+  backgroundColor: "$gray700",
+  backgroundImage:
+    "linear-gradient(90deg, #181C2A 0%, #262C42 48.63%, #181C2A 100%)",
+  backgroundSize: "700px 100%",
+  backgroundRepeat: "no-repeat",
+  animation: `${SkeletonAnimation} 1s ease-in-out infinite`,
 });

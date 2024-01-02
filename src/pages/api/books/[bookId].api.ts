@@ -16,7 +16,7 @@ export default async function handler(
   }
 
   try {
-    const book = await prisma.book.findUnique({
+    const book = await prisma.book.findUniqueOrThrow({
       where: {
         id: bookId,
       },
@@ -34,7 +34,25 @@ export default async function handler(
       },
     });
 
-    return res.status(200).json(book);
+    let averageRating = 0;
+
+    if (book?.ratings && book?.ratings.length !== 0) {
+      averageRating =
+        book.ratings.reduce((cur, acc) => {
+          return cur + acc.rate;
+        }, 0) / book.ratings.length;
+    }
+
+    const { created_at, cover_url, total_pages, ...rest } = book;
+
+    const bookFormatted = {
+      ...rest,
+      createdAt: book.created_at,
+      coverUrl: book.cover_url,
+      totalPages: book.total_pages,
+    };
+
+    return res.status(200).json({ ...bookFormatted, averageRating });
   } catch (error) {
     console.log("Error fetching books: ", error);
 

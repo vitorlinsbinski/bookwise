@@ -5,8 +5,9 @@ export const ProfileContainer = styled("main", {
   maxWidth: 1500,
   paddingLeft: "3rem",
   display: "flex",
-  alignItems: "flex-start",
   gap: "4rem",
+  paddingBottom: "1rem",
+  alignItems: "flex-start",
 
   "@media(max-width: 1200px)": {
     flexDirection: "column-reverse",
@@ -220,6 +221,7 @@ export const ProfileHeading = styled("div", {
     fontWeight: "$bold",
     lineHeight: "$short",
     color: "$gray100",
+    textAlign: "center",
   },
 
   span: {
@@ -285,5 +287,57 @@ export const ProfileAboutItem = styled("li", {
       lineHeight: "$base",
       color: "$gray300",
     },
+  },
+});
+
+export const NothingRatedBox = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  textAlign: "center",
+  width: "100%",
+  maxWidth: "15rem",
+  margin: "auto",
+  height: "100%",
+  flex: 1,
+
+  svg: {
+    marginBottom: "$4",
+    color: "$purple100",
+  },
+
+  span: {
+    fontSize: "$md",
+    fontWeight: "$regular",
+    lineHeight: "$short",
+    color: "$gray200",
+  },
+
+  a: {
+    marginTop: "$6",
+    padding: "0.5rem 1.2rem",
+    border: "1px solid $purple100",
+    borderRadius: "$sm",
+    transition: "background-color .2s",
+
+    span: {
+      color: "$purple100",
+      transition: "color .2s",
+    },
+
+    "&:hover": {
+      backgroundColor: "rgba(80, 178, 192, 0.2)",
+      borderColor: "$green100",
+
+      span: {
+        color: "$green100",
+      },
+    },
+  },
+
+  "@media(max-width: 720px)": {
+    borderTop: "1px solid $gray700",
+    paddingTop: "$8",
   },
 });

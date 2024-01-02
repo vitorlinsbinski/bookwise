@@ -1,3 +1,4 @@
+import { SkeletonAnimation } from "@/styles/animations";
 import { styled } from "@/styles/stitches.config";
 
 export const ExploreContainer = styled("main", {
@@ -204,5 +205,28 @@ export const BookStars = styled("div", {
 
   svg: {
     color: "$purple100",
+  },
+});
+
+export const SkeletonBook = styled("div", {
+  flex: "1 1 auto",
+  backgroundColor: "$gray700",
+  width: "100%",
+  maxWidth: "19.92rem",
+  borderRadius: "$sm",
+  height: "11.5rem",
+  display: "flex",
+  backgroundImage:
+    "linear-gradient(90deg, #181C2A 0%, #262C42 48.63%, #181C2A 100%)",
+  backgroundSize: "900px 100%",
+  backgroundRepeat: "no-repeat",
+  animation: `${SkeletonAnimation} .8s ease-in-out infinite`,
+
+  "@media(max-width: 1120px)": {
+    maxWidth: "48%",
+  },
+
+  "@media(max-width: 720px)": {
+    maxWidth: "100%",
   },
 });

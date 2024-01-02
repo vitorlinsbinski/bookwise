@@ -9,6 +9,7 @@ import {
   SearchBookBox,
   SearchBookForm,
   SearchBookInput,
+  SkeletonBook,
   Tag,
 } from "./styles";
 import { ReactElement, useEffect, useState } from "react";
@@ -19,7 +20,7 @@ import bookImg from "../../../public/assets/Book3.png";
 import { Stars } from "@/components/Stars";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { BookModal } from "@/components/BookModal";
+import { BookModal } from "@/components/BookModal/BookModal";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +28,7 @@ import { api } from "@/lib/axios";
 import { GetStaticProps } from "next";
 
 const searchBookFormSchema = z.object({
-  query: z.string().min(1, { message: "Digite algum livro ou autor" }),
+  query: z.string(),
 });
 
 type SearchBookFormData = z.infer<typeof searchBookFormSchema>;
@@ -36,7 +37,8 @@ interface Book {
   id: string;
   name: string;
   author: string;
-  cover_url: string;
+  coverUrl: string;
+  averageRating: number;
 }
 
 interface Category {
@@ -53,7 +55,7 @@ export default function Explore({
   initialBooks,
   initialCategories,
 }: ExploreProps) {
-  const [books, setBooks] = useState<Book[] | null>(initialBooks);
+  const [books, setBooks] = useState<Book[]>(initialBooks);
 
   const categories: Category[] = initialCategories;
 
@@ -62,7 +64,7 @@ export default function Explore({
     name: "Tudo",
   });
 
-  const [bookIdSelected, setBookIdSelected] = useState("");
+  const [selectedBookId, setSelectedBookId] = useState("");
 
   async function fetchBooksOnCategory(categoryId: string) {
     try {
@@ -74,17 +76,36 @@ export default function Explore({
   }
 
   useEffect(() => {
+    setValue("query", "");
     fetchBooksOnCategory(selectedCategory.id);
   }, [selectedCategory]);
 
-  function handleSearchBookForm(data: SearchBookFormData) {
-    console.log(data);
+  async function handleSearchBookForm({ query }: SearchBookFormData) {
+    const queryParams = new URLSearchParams({
+      querySearch: query,
+      categoryId: selectedCategory.id,
+    });
+
+    const url = `/books/search?${queryParams.toString()}`;
+
+    if (query) {
+      try {
+        const { data } = await api.get<Book[]>(url);
+
+        setBooks(data);
+      } catch (error) {
+        console.log("Error fetching books: ", error);
+      }
+    } else {
+      fetchBooksOnCategory(selectedCategory.id);
+    }
   }
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setValue,
   } = useForm<SearchBookFormData>({
     resolver: zodResolver(searchBookFormSchema),
   });
@@ -138,35 +159,46 @@ export default function Explore({
 
         <Dialog.Root>
           <Books>
-            {books?.map((book) => {
-              return (
-                <Dialog.Trigger
-                  asChild
-                  key={book.id}
-                  onClick={() => setBookIdSelected(book.id)}>
-                  <Book>
-                    <Image
-                      src={book.cover_url}
-                      alt={book.name}
-                      width={108}
-                      height={152}
-                    />
+            {books ? (
+              books.map((book) => {
+                return (
+                  <Dialog.Trigger
+                    asChild
+                    key={book.id}
+                    onClick={() => setSelectedBookId(book.id)}>
+                    <Book>
+                      <Image
+                        src={book.coverUrl}
+                        alt={book.name}
+                        width={108}
+                        height={152}
+                      />
 
-                    <BookInfo>
-                      <h4>{book.name}</h4>
-                      <span>{book.author}</span>
+                      <BookInfo>
+                        <h4>{book.name}</h4>
+                        <span>{book.author}</span>
 
-                      <BookStars>
-                        <Stars amount={5} />
-                      </BookStars>
-                    </BookInfo>
-                  </Book>
-                </Dialog.Trigger>
-              );
-            })}
+                        <BookStars>
+                          <Stars amount={book.averageRating} />
+                        </BookStars>
+                      </BookInfo>
+                    </Book>
+                  </Dialog.Trigger>
+                );
+              })
+            ) : (
+              <>
+                <SkeletonBook />
+                <SkeletonBook />
+                <SkeletonBook />
+                <SkeletonBook />
+                <SkeletonBook />
+                <SkeletonBook />
+              </>
+            )}
           </Books>
 
-          {books && <BookModal bookId={bookIdSelected} />}
+          {books && <BookModal bookId={selectedBookId} />}
         </Dialog.Root>
       </ExploreContainer>
     </>
