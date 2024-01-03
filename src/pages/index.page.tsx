@@ -29,7 +29,7 @@ import Image from "next/image";
 import { Stars } from "@/components/Stars";
 import { ReviewCard } from "@/components/ReviewCard";
 import * as Dialog from "@radix-ui/react-dialog";
-import { BookModal } from "@/components/BookModal/BookModal";
+import { BookModal } from "@/components/BookModal";
 import { GetServerSideProps, GetStaticProps } from "next";
 import { api } from "@/lib/axios";
 import Link from "next/link";
@@ -73,6 +73,8 @@ export default function Home({ lastRatings, popularBooks }: HomeProps) {
   const [userLastReading, setUserLastReading] = useState<Rating>();
 
   const session = useSession();
+
+  console.log(session);
 
   async function fetchLastUserReading() {
     try {
@@ -174,31 +176,23 @@ export default function Home({ lastRatings, popularBooks }: HomeProps) {
           <div>
             <span>Avaliações mais recentes</span>
 
-            <Dialog.Root>
-              <ReviewCards>
-                {lastRatings?.map((rating) => {
-                  return (
-                    <Dialog.Trigger
-                      asChild
-                      key={rating.id}
-                      onClick={handleClick}>
-                      <ReviewCard
-                        userName={rating.user.name}
-                        publishedAt={new Date(rating.createdAt)}
-                        bookTitle={rating.book.name}
-                        bookAuthor={rating.book.author}
-                        bookDescription={rating.book.summary}
-                        bookImgPath={rating.book.coverUrl}
-                        starsNumber={rating.rate}
-                        userImagePath={rating.user.avatarUrl}
-                      />
-                    </Dialog.Trigger>
-                  );
-                })}
-              </ReviewCards>
-
-              <BookModal bookId="" />
-            </Dialog.Root>
+            <ReviewCards>
+              {lastRatings?.map((rating) => {
+                return (
+                  <ReviewCard
+                    key={rating.id}
+                    userName={rating.user.name}
+                    publishedAt={new Date(rating.createdAt)}
+                    bookTitle={rating.book.name}
+                    bookAuthor={rating.book.author}
+                    bookDescription={rating.book.summary}
+                    bookImgPath={rating.book.coverUrl}
+                    starsNumber={rating.rate}
+                    userImagePath={rating.user.avatarUrl}
+                  />
+                );
+              })}
+            </ReviewCards>
           </div>
         </MostRecentEvaluations>
 

@@ -1,43 +1,13 @@
 import { styled, keyframes, css } from "@/styles/stitches.config";
-import { SkeletonAnimation } from "@/styles/animations";
+import {
+  FadeIn,
+  FadeOut,
+  LeftToRight,
+  RightToLeft,
+  SkeletonAnimation,
+} from "@/styles/animations";
 
 import * as Dialog from "@radix-ui/react-dialog";
-
-const RightToLeft = keyframes({
-  "0%": {
-    transform: "translateX(100%)",
-  },
-  "100%": {
-    transform: "translateX(0)",
-  },
-});
-
-const LeftToRight = keyframes({
-  "0%": {
-    transform: "translateX(0)",
-  },
-  "100%": {
-    transform: "translateX(100%)",
-  },
-});
-
-const FadeIn = keyframes({
-  "0%": {
-    opacity: 0,
-  },
-  "100%": {
-    opacity: 1,
-  },
-});
-
-const FadeOut = keyframes({
-  "100%": {
-    opacity: 0,
-  },
-  "0%": {
-    opacity: 1,
-  },
-});
 
 export const Overlay = styled(Dialog.Overlay, {
   width: "100vw",

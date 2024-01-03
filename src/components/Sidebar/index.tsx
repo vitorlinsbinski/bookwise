@@ -32,6 +32,7 @@ import Link from "next/link";
 import profileImg from "../../../public/assets/avatarExample.png";
 import { LoginModal } from "../LogInModal";
 import { signOut, useSession } from "next-auth/react";
+import { LogOutModal } from "../LogOutModal";
 
 interface SidebarProps {
   isSignedIn: boolean;
@@ -107,17 +108,23 @@ export function Sidebar({ isSignedIn }: SidebarProps) {
           <LoginModal />
         </Dialog.Root>
       ) : (
-        <LogOutButton isOpen={isSidebarOpen}>
-          <Link href={"/perfil"}>
-            <Avatar imgPath={session.data?.user?.avatar_url} size={32} />
-          </Link>
+        <Dialog.Root>
+          <LogOutButton isOpen={isSidebarOpen}>
+            <Link href={"/perfil"}>
+              <Avatar imgPath={session.data?.user?.avatar_url} size={32} />
+            </Link>
 
-          <Link href={"/perfil"}>
-            <span>{session.data?.user?.name?.split(" ")[0]}</span>{" "}
-          </Link>
+            <Link href={"/perfil"}>
+              <span>{session.data?.user?.name?.split(" ")[0]}</span>{" "}
+            </Link>
 
-          <SignOut size={20} onClick={async () => await signOut()} />
-        </LogOutButton>
+            <Dialog.Trigger asChild>
+              <SignOut size={20} />
+            </Dialog.Trigger>
+          </LogOutButton>
+
+          <LogOutModal />
+        </Dialog.Root>
       )}
     </SidebarContainer>
   );

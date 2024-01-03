@@ -1,5 +1,5 @@
 import { BottomToTop, FadeIn, FadeOut, TopToBottom } from "@/styles/animations";
-import { styled, keyframes } from "@/styles/stitches.config";
+import { styled } from "@/styles/stitches.config";
 import * as Dialog from "@radix-ui/react-dialog";
 
 export const Overlay = styled(Dialog.Overlay, {
@@ -8,7 +8,7 @@ export const Overlay = styled(Dialog.Overlay, {
   position: "fixed",
   inset: 0,
   background: "rgba(0, 0, 0, 0.60)",
-  zIndex: 2024,
+  zIndex: 2023,
 
   "&[data-state='open']": {
     animation: `${FadeIn} .3s`,
@@ -21,7 +21,7 @@ export const Overlay = styled(Dialog.Overlay, {
 
 export const Content = styled(Dialog.Content, {
   width: "100%",
-  maxWidth: "32.25rem",
+  maxWidth: "24.62rem",
   backgroundColor: "$gray700",
   boxShadow: "4px 16px 24px 0px rgba(0, 0, 0, 0.25)",
   padding: "3.5rem 4.5rem",
@@ -35,7 +35,7 @@ export const Content = styled(Dialog.Content, {
   textAlign: "center",
   borderRadius: "$sm",
 
-  h3: {
+  h2: {
     fontSize: "$md",
     fontWeight: "$regular",
     lineHeight: "$short",
@@ -77,13 +77,44 @@ export const CloseButton = styled(Dialog.Close, {
   },
 });
 
-export const LoginButtons = styled("div", {
-  marginTop: "$10",
+export const Buttons = styled("div", {
+  marginTop: "$6",
   display: "flex",
-  flexDirection: "column",
-  gap: "$4",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "$3",
+});
 
-  "@media(max-width: 720px)": {
-    marginTop: "$6",
+const BaseButton = styled("button", {
+  padding: "1rem 2.25rem",
+  borderRadius: "$sm",
+
+  fontSize: "$md",
+  fontWeight: "$bold",
+  lineHeight: "$short",
+
+  cursor: "pointer",
+
+  transition: "all .2s",
+});
+
+export const CancelButton = styled(BaseButton, {
+  backgroundColor: "$gray600",
+
+  color: "$gray100",
+
+  "&:hover": {
+    backgroundColor: "$gray500",
+  },
+});
+
+export const LogOutButton = styled(BaseButton, {
+  backgroundColor: "transparent",
+  border: "1px solid $gray600",
+  color: "$gray300",
+
+  "&:hover": {
+    borderColor: "$gray200",
+    color: "$gray200",
   },
 });

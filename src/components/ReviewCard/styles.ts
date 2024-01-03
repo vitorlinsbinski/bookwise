@@ -5,7 +5,6 @@ export const CardContainer = styled("div", {
   backgroundColor: "$gray700",
   padding: "$6",
   borderRadius: "$sm",
-  cursor: "pointer",
 });
 
 export const ProfileArea = styled("div", {

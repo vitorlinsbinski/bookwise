@@ -12,7 +12,7 @@ import {
   SkeletonBook,
   Tag,
 } from "./styles";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import DefaultLayout from "@/components/DefaultLayout";
 import { MagnifyingGlass } from "phosphor-react";
 import Image from "next/image";
@@ -20,12 +20,13 @@ import bookImg from "../../../public/assets/Book3.png";
 import { Stars } from "@/components/Stars";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { BookModal } from "@/components/BookModal/BookModal";
+import { BookModal } from "@/components/BookModal";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axios";
 import { GetStaticProps } from "next";
+import { BookModalContext } from "@/contexts/BookModalContext";
 
 const searchBookFormSchema = z.object({
   query: z.string(),
@@ -124,6 +125,9 @@ export default function Explore({
     </SearchBookForm>
   );
 
+  const { isBookModalOpen, onBookModalOpenChange } =
+    useContext(BookModalContext);
+
   return (
     <>
       <Header
@@ -157,7 +161,9 @@ export default function Explore({
             })}
         </GenreTags>
 
-        <Dialog.Root>
+        <Dialog.Root
+          onOpenChange={(open) => onBookModalOpenChange(open)}
+          open={isBookModalOpen}>
           <Books>
             {books ? (
               books.map((book) => {

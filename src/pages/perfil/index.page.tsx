@@ -34,7 +34,7 @@ import bookImage from "../../../public/assets/Book.png";
 import { Avatar } from "@/components/Avatar";
 import avatarImage from "../../../public/assets/Avatar2.png";
 import * as Dialog from "@radix-ui/react-dialog";
-import { BookModal } from "@/components/BookModal/BookModal";
+import { BookModal } from "@/components/BookModal";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -47,7 +47,7 @@ import formatDateFromNow from "@/utils/dateFormatterFromNow";
 import Link from "next/link";
 
 const searchReviewFormSchema = z.object({
-  query: z.string().min(1, { message: "Digite algum livro ou autor" }),
+  query: z.string(),
 });
 
 type SearchReviewFormData = z.infer<typeof searchReviewFormSchema>;
@@ -95,8 +95,23 @@ export default function Profile({ userData }: UserData) {
 
   const [selectedBookId, setSelectedBookId] = useState("");
 
-  function handleSearchReviewForm(data: SearchReviewFormData) {
+  const [userRatings, setUserRatings] = useState<Rating[]>(userData.ratings);
+
+  const [userFilteredRatings, setUserFilteredRatings] = useState(
+    userData.ratings
+  );
+
+  async function handleSearchReviewForm(search: SearchReviewFormData) {
+    const params = new URLSearchParams({
+      userId: userData.user.id,
+      searchQuery: search.query,
+    });
+
+    const { data } = await api.get(`/books/ratings/search`, { params });
+
     console.log(data);
+
+    setUserFilteredRatings(data);
   }
 
   return (
@@ -105,7 +120,7 @@ export default function Profile({ userData }: UserData) {
 
       <ProfileContainer>
         <ProfileReviews>
-          {userData.ratings.length > 0 ? (
+          {userRatings.length > 0 ? (
             <SearchReviewForm onSubmit={handleSubmit(handleSearchReviewForm)}>
               <SearchBookBox>
                 <SearchBookInput
@@ -130,7 +145,7 @@ export default function Profile({ userData }: UserData) {
 
           <Dialog.Root>
             <AllReviews>
-              {userData.ratings.map((rating) => {
+              {userFilteredRatings.map((rating) => {
                 return (
                   <Review>
                     <span>{formatDateFromNow(new Date(rating.createdAt))}</span>

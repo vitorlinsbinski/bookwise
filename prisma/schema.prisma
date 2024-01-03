@@ -77,6 +77,7 @@
     provider            String
     provider_account_id String
     refresh_token       String?
+    refresh_token_expires_in  Int?
     access_token        String?
     expires_at          Int?
     token_type          String?

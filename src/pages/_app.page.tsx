@@ -4,6 +4,7 @@ import { globalStyles } from "@/styles/global";
 import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
 import { SessionProvider } from "next-auth/react";
+import { BookModalContextProvider } from "@/contexts/BookModalContext";
 
 const nunito = Nunito_Sans({
   weight: ["400", "500", "700"],
@@ -28,11 +29,13 @@ export default function App({
 
   return (
     <SessionProvider session={session}>
-      {getLayout(
-        <div className={nunito.className}>
-          <Component {...pageProps} />
-        </div>
-      )}
+      <BookModalContextProvider>
+        {getLayout(
+          <div className={nunito.className}>
+            <Component {...pageProps} />
+          </div>
+        )}
+      </BookModalContextProvider>
     </SessionProvider>
   );
 }

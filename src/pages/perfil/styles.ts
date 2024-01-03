@@ -7,7 +7,6 @@ export const ProfileContainer = styled("main", {
   display: "flex",
   gap: "4rem",
   paddingBottom: "1rem",
-  alignItems: "flex-start",
 
   "@media(max-width: 1200px)": {
     flexDirection: "column-reverse",
@@ -196,7 +195,7 @@ export const ProfileInfo = styled("section", {
   borderLeft: "1px solid $gray700",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "flex-start",
   flexDirection: "column",
 
   "@media(max-width: 1200px)": {

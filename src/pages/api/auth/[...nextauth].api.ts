@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@/lib/auth/prisma-adapter";
+import { prisma } from "@/lib/prisma";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
+import GithubProvider, { GithubProfile } from "next-auth/providers/github";
 import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
@@ -26,10 +27,20 @@ export const authOptions: NextAuthOptions = {
           email: profile.email,
         };
       },
+      allowDangerousEmailAccountLinking: true,
     }),
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID ?? "",
       clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
+      profile(profile: GithubProfile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name ?? profile.login,
+          email: profile.email ?? "",
+          avatar_url: profile.avatar_url,
+        };
+      },
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   callbacks: {
@@ -44,6 +55,7 @@ export const authOptions: NextAuthOptions = {
     async redirect() {
       return "/";
     },
+
     async session({ session, user }) {
       return {
         ...session,
