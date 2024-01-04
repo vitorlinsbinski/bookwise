@@ -140,7 +140,7 @@ export default function Profile() {
 
       <ProfileContainer>
         <ProfileReviews>
-          {userData?.ratings ? (
+          {userData?.ratings && userData?.ratings.length > 0 ? (
             <SearchReviewForm onSubmit={handleSubmit(handleSearchReviewForm)}>
               <SearchBookBox>
                 <SearchBookInput
