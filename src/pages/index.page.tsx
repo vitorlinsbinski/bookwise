@@ -205,7 +205,7 @@ export default function Home({ lastRatings, popularBooks }: HomeProps) {
                     publishedAt={new Date(rating.createdAt)}
                     bookTitle={rating.book.name}
                     bookAuthor={rating.book.author}
-                    bookDescription={rating.book.summary}
+                    bookDescription={rating.description}
                     bookImgPath={rating.book.coverUrl}
                     starsNumber={rating.rate}
                     userImagePath={rating.user.avatarUrl}
