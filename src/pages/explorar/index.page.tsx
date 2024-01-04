@@ -61,6 +61,8 @@ export default function Explore({
 
   const categories: Category[] = initialCategories;
 
+  console.log(initialBooks, initialCategories);
+
   const [selectedCategory, setSelectedCategory] = useState<Category>({
     id: "Tudo",
     name: "Tudo",
