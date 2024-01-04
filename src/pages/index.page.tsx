@@ -278,7 +278,7 @@ Home.getLayout = function (page: ReactElement) {
   return <DefaultLayout>{page}</DefaultLayout>;
 };
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const fetchLastRatings = async () => {
     try {
       const { data } = await api.get("/books/ratings/last");
@@ -309,6 +309,5 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
       lastRatings,
       popularBooks,
     },
-    revalidate: 60 * 60 * 24, // 1 dia
   };
 };
