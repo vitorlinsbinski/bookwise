@@ -75,6 +75,8 @@ export default function Home({ lastRatings, popularBooks }: HomeProps) {
 
   console.log(session);
 
+  console.log(lastRatings, popularBooks);
+
   async function fetchLastUserReading() {
     try {
       const userId = session.data?.user.id;
