@@ -46,6 +46,8 @@ import { authOptions } from "../api/auth/[...nextauth].api";
 import formatDateFromNow from "@/utils/dateFormatterFromNow";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
 const searchReviewFormSchema = z.object({
   query: z.string(),
@@ -68,22 +70,20 @@ interface Rating {
 }
 
 interface UserData {
-  userData: {
-    user: {
-      id: string;
-      name: string;
-      avatarUrl: string;
-      createdAt: Date;
-    };
-    ratings: Rating[];
-    numberOfPagesReaded: number | null;
-    numberOfBooksRated: number | null;
-    numberOfAuthorsReaded: number | null;
-    mostReadCategory: string | null;
+  user: {
+    id: string;
+    name: string;
+    avatarUrl: string;
+    createdAt: Date;
   };
+  ratings: Rating[];
+  numberOfPagesReaded: number | null;
+  numberOfBooksRated: number | null;
+  numberOfAuthorsReaded: number | null;
+  mostReadCategory: string | null;
 }
 
-export default function Profile({ userData }: UserData) {
+export default function Profile() {
   const {
     register,
     handleSubmit,
@@ -93,18 +93,32 @@ export default function Profile({ userData }: UserData) {
   });
 
   const session = useSession();
+  const router = useRouter();
+
+  async function fetchUserData() {
+    if (session.data && session.status === "authenticated") {
+      const userId = session.data.user.id;
+      const { data } = await api.get(`/users/${userId}`);
+      return data;
+    } else {
+      router.push("/login");
+    }
+  }
+
+  const { data: userData } = useQuery<UserData>({
+    queryKey: ["user-data"],
+    queryFn: fetchUserData,
+  });
 
   const [selectedBookId, setSelectedBookId] = useState("");
 
-  const [userRatings, setUserRatings] = useState<Rating[]>(userData.ratings);
-
   const [userFilteredRatings, setUserFilteredRatings] = useState(
-    userData.ratings
+    userData?.ratings ?? []
   );
 
   async function handleSearchReviewForm(search: SearchReviewFormData) {
     const params = new URLSearchParams({
-      userId: userData.user.id,
+      userId: userData?.user.id ?? "",
       searchQuery: search.query,
     });
 
@@ -126,7 +140,7 @@ export default function Profile({ userData }: UserData) {
 
       <ProfileContainer>
         <ProfileReviews>
-          {userRatings.length > 0 ? (
+          {userData?.ratings ? (
             <SearchReviewForm onSubmit={handleSubmit(handleSearchReviewForm)}>
               <SearchBookBox>
                 <SearchBookInput
@@ -196,11 +210,12 @@ export default function Profile({ userData }: UserData) {
 
         <ProfileInfo>
           <ProfileHeading>
-            <Avatar size={72} imgPath={userData.user.avatarUrl} />
+            <Avatar size={72} imgPath={userData?.user.avatarUrl} />
 
-            <strong>{userData.user.name}</strong>
+            <strong>{userData?.user.name}</strong>
             <span>
-              membro desde {new Date(userData.user.createdAt).getFullYear()}
+              membro desde{" "}
+              {new Date(userData?.user.createdAt ?? new Date()).getFullYear()}
             </span>
           </ProfileHeading>
 
@@ -209,7 +224,7 @@ export default function Profile({ userData }: UserData) {
               <BookOpen size={32} />
 
               <div>
-                <strong>{userData.numberOfPagesReaded}</strong>
+                <strong>{userData?.numberOfPagesReaded}</strong>
                 <span>Páginas lidas</span>
               </div>
             </ProfileAboutItem>
@@ -218,7 +233,7 @@ export default function Profile({ userData }: UserData) {
               <Books size={32} />
 
               <div>
-                <strong>{userData.numberOfBooksRated}</strong>
+                <strong>{userData?.numberOfBooksRated}</strong>
                 <span>Livros avaliados</span>
               </div>
             </ProfileAboutItem>
@@ -227,7 +242,7 @@ export default function Profile({ userData }: UserData) {
               <UserList size={32} />
 
               <div>
-                <strong>{userData.numberOfAuthorsReaded}</strong>
+                <strong>{userData?.numberOfAuthorsReaded}</strong>
                 <span>Autores lidos</span>
               </div>
             </ProfileAboutItem>
@@ -237,7 +252,7 @@ export default function Profile({ userData }: UserData) {
 
               <div>
                 <strong>
-                  {userData.mostReadCategory
+                  {userData?.mostReadCategory
                     ? userData.mostReadCategory
                     : "Nenhuma"}
                 </strong>
@@ -255,44 +270,44 @@ Profile.getLayout = function (page: ReactElement) {
   return <DefaultLayout>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps<UserData> = async (
-  context
-) => {
-  try {
-    const session = await getServerSession(
-      context.req,
-      context.res,
-      authOptions
-    );
+// export const getServerSideProps: GetServerSideProps<UserData> = async (
+//   context
+// ) => {
+//   try {
+//     const session = await getServerSession(
+//       context.req,
+//       context.res,
+//       authOptions
+//     );
 
-    if (!session) {
-      return {
-        redirect: {
-          destination: "/login",
-          permanent: false,
-        },
-      };
-    }
+//     if (!session) {
+//       return {
+//         redirect: {
+//           destination: "/login",
+//           permanent: false,
+//         },
+//       };
+//     }
 
-    const userId = session.user.id;
+//     const userId = session.user.id;
 
-    const { data } = await api.get(`/users/${userId}`);
+//     const { data } = await api.get(`/users/${userId}`);
 
-    const serializedUserData = {
-      ...data,
-      headers: data.headers || null,
-    };
+//     const serializedUserData = {
+//       ...data,
+//       headers: data.headers || null,
+//     };
 
-    return {
-      props: {
-        userData: serializedUserData,
-      },
-    };
-  } catch (error) {
-    console.log("Error fetching user data: ", error);
+//     return {
+//       props: {
+//         userData: serializedUserData,
+//       },
+//     };
+//   } catch (error) {
+//     console.log("Error fetching user data: ", error);
 
-    return {
-      notFound: true,
-    };
-  }
-};
+//     return {
+//       notFound: true,
+//     };
+//   }
+// };
