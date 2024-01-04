@@ -43,6 +43,7 @@ export const authOptions: NextAuthOptions = {
       allowDangerousEmailAccountLinking: true,
     }),
   ],
+  secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
     async signIn({ profile }) {
       if (!profile?.name) {
