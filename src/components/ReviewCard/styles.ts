@@ -34,7 +34,7 @@ export const PersonaInfo = styled("div", {
     lineHeight: "$base",
   },
 
-  span: {
+  time: {
     fontSize: "$sm",
     color: "$gray400",
     fontWeight: "$regular",

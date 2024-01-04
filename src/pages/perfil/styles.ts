@@ -155,6 +155,7 @@ export const CardReviewBookTitle = styled("div", {
   display: "flex",
   flexDirection: "column",
   width: "100%",
+  flex: 1,
 
   div: {
     "&:first-child": {

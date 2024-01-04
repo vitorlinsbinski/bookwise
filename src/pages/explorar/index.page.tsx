@@ -27,6 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axios";
 import { GetStaticProps } from "next";
 import { BookModalContext } from "@/contexts/BookModalContext";
+import { NextSeo } from "next-seo";
 
 const searchBookFormSchema = z.object({
   query: z.string(),
@@ -130,6 +131,11 @@ export default function Explore({
 
   return (
     <>
+      <NextSeo
+        title="Explorar - Bookwise"
+        description="Explore todos os livros por categorias"
+      />
+
       <Header
         route="explorar"
         title="Explorar"

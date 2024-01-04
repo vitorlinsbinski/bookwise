@@ -45,6 +45,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth].api";
 import formatDateFromNow from "@/utils/dateFormatterFromNow";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 
 const searchReviewFormSchema = z.object({
   query: z.string(),
@@ -116,6 +117,11 @@ export default function Profile({ userData }: UserData) {
 
   return (
     <>
+      <NextSeo
+        title={`Perfil - ${session.data?.user.name}`}
+        description="Veja todas as suas últimas avaliações de livros e seus dados"
+      />
+
       <Header route="perfil" title="Perfil"></Header>
 
       <ProfileContainer>
@@ -252,6 +258,11 @@ Profile.getLayout = function (page: ReactElement) {
 export const getServerSideProps: GetServerSideProps<UserData> = async (
   context
 ) => {
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
   try {
     const session = await getServerSession(
       context.req,

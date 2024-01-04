@@ -15,31 +15,39 @@ import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { authOptions } from "../api/auth/[...nextauth].api";
 import { getServerSession } from "next-auth";
+import { NextSeo } from "next-seo";
 
 export default function Login() {
   return (
-    <div>
-      <LoginContainer>
-        <Hero>
-          <LogoContainer>
-            <Image src={logoImg} alt="" width={232} height={419} />
-          </LogoContainer>
-        </Hero>
+    <>
+      <NextSeo
+        title="Login - Bookwise"
+        description="Faça seu login no Bookwise e começe agora a avaliar seus livros favoritos"
+      />
 
-        <LoginArea>
-          <h2>Boas vindas!</h2>
-          <p>Faça seu login ou acesse como visitante.</p>
+      <div>
+        <LoginContainer>
+          <Hero>
+            <LogoContainer>
+              <Image src={logoImg} alt="" width={232} height={419} />
+            </LogoContainer>
+          </Hero>
 
-          <ButtonsContainer>
-            <LoginButton loginType="google" text="Entrar com Google" />
-            <LoginButton loginType="github" text="Entrar com GitHub" />
-            <Link href={"/"}>
-              <LoginButton loginType="guest" text="Acessar como visitante" />
-            </Link>
-          </ButtonsContainer>
-        </LoginArea>
-      </LoginContainer>
-    </div>
+          <LoginArea>
+            <h2>Boas vindas!</h2>
+            <p>Faça seu login ou acesse como visitante.</p>
+
+            <ButtonsContainer>
+              <LoginButton loginType="google" text="Entrar com Google" />
+              <LoginButton loginType="github" text="Entrar com GitHub" />
+              <Link href={"/"}>
+                <LoginButton loginType="guest" text="Acessar como visitante" />
+              </Link>
+            </ButtonsContainer>
+          </LoginArea>
+        </LoginContainer>
+      </div>
+    </>
   );
 }
 

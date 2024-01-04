@@ -19,12 +19,11 @@ import {
   PopularBooksHeading,
   SeeMoreButton,
   ReviewCards,
+  SkeletonLastReadingCard,
 } from "../styles/home";
 import DefaultLayout from "@/components/DefaultLayout";
 import { Header } from "@/components/Header";
-import bookImg from "../../public/assets/Book.png";
 import { CaretRight } from "phosphor-react";
-import popularBookImg from "../../public/assets/Book2.png";
 import Image from "next/image";
 import { Stars } from "@/components/Stars";
 import { ReviewCard } from "@/components/ReviewCard";
@@ -37,6 +36,8 @@ import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth].api";
 import formatDateFromNow from "@/utils/dateFormatterFromNow";
+import { useQuery } from "@tanstack/react-query";
+import { NextSeo } from "next-seo";
 
 interface User {
   id: string;
@@ -70,108 +71,125 @@ interface HomeProps {
 export default function Home({ lastRatings, popularBooks }: HomeProps) {
   const [selectedBookId, setSelectedBookId] = useState("");
 
-  const [userLastReading, setUserLastReading] = useState<Rating>();
-
   const session = useSession();
 
   console.log(session);
 
   async function fetchLastUserReading() {
     try {
-      if (session.status === "unauthenticated") {
-        return setUserLastReading({} as Rating);
-      }
-
       const userId = session.data?.user.id;
 
       const { data } = await api.get(`/users/${userId}`);
 
-      setUserLastReading(data.ratings[0]);
+      return data.ratings[0];
     } catch (error) {
       console.log("Error fetching user data: ", error);
 
-      setUserLastReading({} as Rating);
+      return null;
     }
   }
 
-  const handleClick = () => {};
-
-  useEffect(() => {
-    fetchLastUserReading();
-  }, []);
+  const { data: userLastReading, isLoading } = useQuery<Rating>({
+    queryKey: ["user-last-reading", session],
+    queryFn: fetchLastUserReading,
+    enabled: session.status === "authenticated",
+  });
 
   return (
     <>
+      <NextSeo
+        title="Início - Bookwise"
+        description="Navegue pelas últimas avaliações e pelos livros mais populares"
+      />
+
       <Header route="home" title="Início"></Header>
 
       <HomeContainer>
         <MostRecentEvaluations>
-          {userLastReading &&
-            userLastReading.book &&
-            userLastReading.book.coverUrl && (
-              <LastReadingArea>
-                <LastReadingHeading>
-                  <span>Sua última leitura</span>
+          {isLoading && (
+            <>
+              <LastReadingHeading>
+                <span>Sua última leitura</span>
 
-                  <Link href={"/perfil"}>
-                    <SeeMoreButton>
-                      <span>Ver todas</span> <CaretRight size={16} />
-                    </SeeMoreButton>
-                  </Link>
-                </LastReadingHeading>
+                <Link href={"/perfil"}>
+                  <SeeMoreButton>
+                    <span>Ver todas</span> <CaretRight size={16} />
+                  </SeeMoreButton>
+                </Link>
+              </LastReadingHeading>
 
-                <Dialog.Root>
-                  <Dialog.Trigger
-                    asChild
-                    onClick={() => setSelectedBookId(userLastReading.book.id)}>
-                    <LastReadingCard>
-                      <LastReadingBookImage>
-                        {userLastReading.book.coverUrl ? (
-                          <Image
-                            src={userLastReading.book.coverUrl}
-                            alt=""
-                            width={108}
-                            height={152}
-                          />
-                        ) : (
-                          <Image
-                            src={"/images/books/placeholder.svg"}
-                            alt=""
-                            width={108}
-                            height={152}
-                          />
-                        )}
-                      </LastReadingBookImage>
+              <SkeletonLastReadingCard />
+            </>
+          )}
 
-                      <LastReadingBookInfo>
-                        <LastReadingCardTop>
-                          <span>
-                            {formatDateFromNow(
-                              new Date(userLastReading.createdAt)
-                            )}
-                          </span>
+          {userLastReading && (
+            <LastReadingArea>
+              <LastReadingHeading>
+                <span>Sua última leitura</span>
 
-                          <div>
-                            <Stars amount={3} />
-                          </div>
-                        </LastReadingCardTop>
+                <Link href={"/perfil"}>
+                  <SeeMoreButton>
+                    <span>Ver todas</span> <CaretRight size={16} />
+                  </SeeMoreButton>
+                </Link>
+              </LastReadingHeading>
 
-                        <LastReadingCardMiddle>
-                          <h4>{userLastReading.book.name}</h4>
-                          <span>{userLastReading.book.author}</span>
-                        </LastReadingCardMiddle>
+              <Dialog.Root>
+                <Dialog.Trigger
+                  asChild
+                  onClick={() => setSelectedBookId(userLastReading.book.id)}>
+                  <LastReadingCard>
+                    <LastReadingBookImage>
+                      {userLastReading.book.coverUrl ? (
+                        <Image
+                          src={userLastReading.book.coverUrl}
+                          alt=""
+                          width={108}
+                          height={152}
+                        />
+                      ) : (
+                        <Image
+                          src={"/images/books/placeholder.svg"}
+                          alt=""
+                          width={108}
+                          height={152}
+                        />
+                      )}
+                    </LastReadingBookImage>
 
-                        <LastReadingCardBottom>
-                          <p>{userLastReading.book.summary}</p>
-                        </LastReadingCardBottom>
-                      </LastReadingBookInfo>
-                    </LastReadingCard>
-                  </Dialog.Trigger>
+                    <LastReadingBookInfo>
+                      <LastReadingCardTop>
+                        <time
+                          title={userLastReading.createdAt.toString()}
+                          dateTime={new Date(
+                            userLastReading.createdAt
+                          ).toISOString()}>
+                          {formatDateFromNow(
+                            new Date(userLastReading.createdAt)
+                          )}
+                        </time>
 
-                  <BookModal bookId={selectedBookId} />
-                </Dialog.Root>
-              </LastReadingArea>
-            )}
+                        <div>
+                          <Stars amount={3} />
+                        </div>
+                      </LastReadingCardTop>
+
+                      <LastReadingCardMiddle>
+                        <h4>{userLastReading.book.name}</h4>
+                        <span>{userLastReading.book.author}</span>
+                      </LastReadingCardMiddle>
+
+                      <LastReadingCardBottom>
+                        <p>{userLastReading.book.summary}</p>
+                      </LastReadingCardBottom>
+                    </LastReadingBookInfo>
+                  </LastReadingCard>
+                </Dialog.Trigger>
+
+                <BookModal bookId={selectedBookId} />
+              </Dialog.Root>
+            </LastReadingArea>
+          )}
 
           <div>
             <span>Avaliações mais recentes</span>

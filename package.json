@@ -2,9 +2,6 @@
   "name": "bookwise",
   "version": "0.1.0",
   "private": true,
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,12 +14,14 @@
     "@prisma/client": "^5.7.1",
     "@radix-ui/react-dialog": "^1.0.5",
     "@stitches/react": "^1.2.8",
+    "@tanstack/react-query": "^5.17.1",
     "@types/uuid": "^9.0.7",
     "axios": "^1.6.2",
     "date-fns": "^2.30.0",
     "googleapis": "^129.0.0",
     "next": "14.0.3",
     "next-auth": "^4.24.5",
+    "next-seo": "^6.4.0",
     "phosphor-react": "^1.4.1",
     "react": "^18",
     "react-dom": "^18",
@@ -32,11 +31,14 @@
   },
   "devDependencies": {
     "@iconify/react": "^4.1.1",
-    "@types/node": "^20.10.4",
+    "@types/node": "^20.10.6",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "prisma": "^5.7.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   }
 }

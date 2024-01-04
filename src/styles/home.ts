@@ -1,4 +1,5 @@
 import { styled } from "@/styles/stitches.config";
+import { SkeletonAnimation } from "./animations";
 
 export const HomeContainer = styled("main", {
   display: "flex",
@@ -130,6 +131,13 @@ export const LastReadingCardTop = styled("div", {
     svg: {
       color: "$purple100",
     },
+  },
+
+  time: {
+    fontSize: "$sm",
+    color: "$gray300",
+    lineHeight: "$base",
+    fontWeight: "$regular",
   },
 });
 
@@ -284,4 +292,19 @@ export const BookStars = styled("div", {
   svg: {
     color: "$purple100",
   },
+});
+
+export const SkeletonLastReadingCard = styled("div", {
+  width: "100%",
+  backgroundColor: "$gray700",
+  borderRadius: "$sm",
+  height: "12.625rem",
+
+  backgroundImage:
+    "linear-gradient(90deg, #181C2A 0%, #262C42 48.63%, #181C2A 100%)",
+  backgroundSize: "900px 100%",
+  backgroundRepeat: "no-repeat",
+  animation: `${SkeletonAnimation} .8s ease-in-out infinite`,
+  marginBottom: "$10",
+  marginTop: "$4",
 });
