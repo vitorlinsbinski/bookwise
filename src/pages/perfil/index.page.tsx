@@ -258,11 +258,6 @@ Profile.getLayout = function (page: ReactElement) {
 export const getServerSideProps: GetServerSideProps<UserData> = async (
   context
 ) => {
-  context.res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
   try {
     const session = await getServerSession(
       context.req,
