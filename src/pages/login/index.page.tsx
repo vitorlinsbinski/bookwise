@@ -52,6 +52,11 @@ export default function Login() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
   try {
     const session = await getServerSession(
       context.req,

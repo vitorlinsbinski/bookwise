@@ -53,6 +53,7 @@ import {
   ApplicationContext,
   ApplicationContextProvider,
 } from "@/contexts/ApplicationContext";
+import { useQuery } from "@tanstack/react-query";
 
 export const userReviewFormSchema = z.object({
   review: z.string().min(1, { message: "Digite sua avaliação" }),
@@ -100,31 +101,34 @@ interface Book {
 export function BookModal({ bookId }: BookModalProps) {
   const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
 
-  const [bookDetails, setBookDetails] = useState<Book>({} as Book);
-
   const { isBookModalOpen } = useContext(ApplicationContext);
+
+  console.log(bookId);
 
   async function fetchBookDetails(bookId: string) {
     try {
+      console.log("Fetching book details for bookId: ", bookId);
       const { data } = await api.get<Book>(`/books/${bookId}`);
-
-      setBookDetails(data);
+      console.log("Data from API: ", data);
+      return data;
     } catch (error) {
-      console.log("Error fetching books: ", error);
-      setBookDetails({} as Book);
+      console.error("Error fetching book details: ", error);
+      throw error;
     }
   }
-
-  useEffect(() => {
-    setBookDetails({} as Book);
-    fetchBookDetails(bookId);
-  }, [bookId]);
 
   useEffect(() => {
     if (!isBookModalOpen) {
       setIsCommentFormOpen(false);
     }
   }, [isBookModalOpen]);
+
+  const { data: bookDetails } = useQuery({
+    queryKey: ["book-details", bookId],
+    queryFn: () => fetchBookDetails(bookId),
+  });
+
+  console.log("bookDetails", bookDetails);
 
   const {
     register,
@@ -170,10 +174,11 @@ export function BookModal({ bookId }: BookModalProps) {
   }
 
   const isUserAlreadyRated =
-    bookDetails.ratings &&
-    bookDetails.ratings.findIndex(
-      (rating) => rating.user.id === session.data?.user.id
-    );
+    (bookDetails?.ratings &&
+      bookDetails.ratings.findIndex(
+        (rating) => rating.user.id === session.data?.user.id
+      )) ??
+    -1;
 
   return (
     <Dialog.Portal>
