@@ -1,40 +1,178 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <img src="/public/bookwise-complete-logo.svg" />
+</div>
 
-## Getting Started
+<h1 align = "center">Bookwise</h1>
+<p>Bookwise is a website to share your rating about a book that you read. Besides, you can search for books based on their category, see your profile statistics, last ratings, popular books, and other features.</p>
+<p>In this project, I learned and practiced a lot of NextJS features, like SSR and SSG. Furthermore, other technologies and libraries were used, like NextAuth for authentication using OAuth 2.0, Prisma ORM, MYSQL Database, React Query, Axios, ZOD, React Hook Form and others.</p>
 
-First, run the development server:
+<div align="center">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <img src="https://img.shields.io/static/v1?label=NextJS&message=v14.0.3&color=blue&style=plastic&logo="/>
+    <img src="https://img.shields.io/static/v1?label=ReactJS&message=v18.0.0&color=blue&style=plastic&logo="/>
+    <img src="https://img.shields.io/static/v1?label=TypeScript&message=v5.3.3&color=blue&style=plastic&logo="/>
+    <img src="https://img.shields.io/static/v1?label=NextAuth&message=v4.24.5&color=blue&style=plastic&logo="/>
+    <img src="https://img.shields.io/static/v1?label=PrismaORM&message=v5.7.0&color=blue&style=plastic&logo="/>
+  </div>
+</div>
+
+<h4 align="center"> 
+	Bookwise | Status: Done ✔️
+</h4>
+
+## Table of Contents
+
+- [Features](#features)
+- [Requirements to run the project](#requirements-to-run-the-project)
+- [Running the application](#running-the-application)
+- [Main Technologies](#main-technologies)
+- [Final Result](#final-result)
+  - [Home page](#home-page)
+  - [Product Page](#product-page)
+  - [Cart Modal](#cart-modal)
+  - [Loading Status](#loading-status)
+  - [Success page](#success-page)
+- [Deploy](#deploy)
+- [License](#license)
+- [Author](#author)
+- [Contributing Guidelines](#contributing-guidelines)
+
+## Features
+
+Bookwise allows you to expose your opinion about a certain book, sharing it with other people who register on the platform. Besides, the books are organized based on each category you choose. Also, you sign in on the website by using OAuth 2.0 provided by Google or by Github.
+
+### 1. Browse the latest book reviews and the popular books
+
+The Home page shows the latest book reviews sent by users registered on the platform, as well as the most popular books.
+
+### 2. Explore all books based on each category
+
+The Explore page shows all books based on each category available in the database. By clicking on a certain book, its detailed information appears. Additionally, you can write down a rating for the book selected and send it.
+
+### 3. View your profile data and analytics
+
+The profile page shows key information about your data such as your latest reviews and data analysis such as most read category, total number of pages read, etc.
+
+## Requirements to run the project
+
+<p>Before you run the project, check if you have [Node.js](https://nodejs.org/en/) installed on your machine, as well [Git](https://git-scm.com) to clone this repository.</p>
+
+## Running the application
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    # Clone this repository on your machine:
+    $ git clone https://github.com/vitorlinsbinski/bookwise.git
+
+    # Access the project folder in your terminal:
+    $ cd bookwise
+
+    # Install all dependencies:
+    $ npm install
+
+    # Run the application:
+    $ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Main Technologies
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- [ReactJS](https://react.dev/)
+- [NextJS](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Axios](https://axios-http.com/ptbr/docs/intro)
+- [Stitches](https://stitches.dev/)
+- [Radix UI](https://www.radix-ui.com/)
+- [Phosphor React](https://www.npmjs.com/package/phosphor-react)
+- [NextAuth](https://next-auth.js.org/)
+- [ZOD](https://zod.dev/)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Query](https://tanstack.com/query/v3/)
+- [Prisma ORM](https://www.prisma.io/s)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Final Result
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Login page
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<span>/login</span>
+<img src = "/public/login.png"/>
 
-## Learn More
+### Home page
 
-To learn more about Next.js, take a look at the following resources:
+<span>/</span>
+<img src = "/public/home1.png"/>
+<img src = "/public/home2.png"/>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Explore Page
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<span>/explore</span>
+<img src = "/public/explore.png"/>
 
-## Deploy on Vercel
+### Profile Page
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<span>/profile</span>
+<img src = "/public/home2.png"/>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Book Modal
+
+<img src = "/public/bookmodal1.png"/>
+<img src = "/public/bookmodal2.png"/>
+
+## Deploy
+
+Check out the project working: https://bookwise-six.vercel.app/login
+
+## Contributing Guidelines
+
+Contributions are welcome! Whether you want to fix a bug, add a new feature, or improve documentation, your contributions are valuable.
+
+### 1. Fork the Repository
+
+Click the "Fork" button at the top right of this repository to create a copy in your GitHub account.
+
+### 2. Clone the Repository
+
+Clone your forked repository to your local machine using the following command:
+
+```bash
+git clone https://github.com/your-username/bookwise.git
+```
+
+### 3. Create a Branch
+
+Create a new branch for your contribution:
+
+```bash
+git checkout -b feature/your-feature-name
+```
+
+### 4. Make changes
+
+Make your desired changes to the codebase. Ensure that your code is working well without problems or bugs.
+
+### 5. Test your changes
+
+Before submitting a pull request, test your changes thoroughly to ensure they work as expected.
+
+### 6. Commit and Push
+
+Commit your changes and push them to your forked repository:
+
+```bash
+git add .
+git commit -m "Add your descriptive commit message here"
+git push origin feature/your-feature-name
+```
+
+## License
+
+This project is licensed under [MIT](https://choosealicense.com/licenses/mit/) License.
+
+### Author
+
+<a href="https://github.com/vitorlinsbinski">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/69444717?v=4" width="100px;" alt=""/>
+ <br />
+ <sub><b>Vitor Linsbinski</b></sub></a> <a href="https://github.com/vitorlinsbinski" title="">🚀</a>
+
+Developed by Vitor Linsbinski
+
+[![Linkedin Badge](https://img.shields.io/badge/-Vitor-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/vitorlinsbinski/)](https://www.linkedin.com/in/vitorlinsbinski/)
