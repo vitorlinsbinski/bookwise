@@ -30,7 +30,7 @@
   - [Login page](#login-page)
   - [Home page](#home-page)
   - [Explore page](#explore-page)
-  - [Profile page](#loading-status)
+  - [Profile page](#profile-page)
   - [Book modal](#book-modal)
 - [Deploy](#deploy)
 - [License](#license)
