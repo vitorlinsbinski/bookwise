@@ -93,10 +93,13 @@ export default function Explore({
 
   async function fetchBooksOnCategory(categoryId: string) {
     try {
+      setIsLoadingBooks(true);
       const { data } = await api.get<Book[]>(`/books/categories/${categoryId}`);
       setBooks(data);
     } catch (error) {
       console.log("Error fetching books: ", error);
+    } finally {
+      setIsLoadingBooks(false);
     }
   }
 
@@ -122,10 +125,8 @@ export default function Explore({
   }
 
   useEffect(() => {
-    setIsLoadingBooks(true);
     setValue("query", "");
     fetchBooksOnCategory(selectedCategory.id);
-    setIsLoadingBooks(false);
   }, [selectedCategory]);
 
   return (
@@ -171,7 +172,7 @@ export default function Explore({
           onOpenChange={(open) => onBookModalOpenChange(open)}
           open={isBookModalOpen}>
           <Books>
-            {isLoadingBooks ? (
+            {!isLoadingBooks ? (
               books.map((book) => {
                 return (
                   <Dialog.Trigger
