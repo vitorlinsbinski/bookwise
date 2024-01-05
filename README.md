@@ -57,6 +57,8 @@ The profile page shows key information about your data such as your latest revie
 
 <p>Before you run the project, check if you have [Node.js](https://nodejs.org/en/) installed on your machine, as well [Git](https://git-scm.com) to clone this repository.</p>
 
+<p>Don't forget to create a ".env" file to include DATABASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET and NEXT_AUTH_SECRET.</p>
+
 ## Running the application
 
 ```bash
