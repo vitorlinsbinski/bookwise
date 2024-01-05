@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/public/bookwise-logo.svg" />
+  <img src="/public/bookwise-logo-big.svg"/>
 </div>
 
 <h1 align = "center">Bookwise</h1>
