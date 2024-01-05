@@ -38,6 +38,9 @@ import { authOptions } from "./api/auth/[...nextauth].api";
 import formatDateFromNow from "@/utils/dateFormatterFromNow";
 import { useQuery } from "@tanstack/react-query";
 import { NextSeo } from "next-seo";
+import { Loading } from "@/components/Loading";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 interface User {
   id: string;
@@ -77,6 +80,8 @@ export default function Home({ lastRatings, popularBooks }: HomeProps) {
 
   console.log(lastRatings, popularBooks);
 
+  const { isFallback } = useRouter();
+
   async function fetchLastUserReading() {
     try {
       const userId = session.data?.user.id;
@@ -96,6 +101,10 @@ export default function Home({ lastRatings, popularBooks }: HomeProps) {
     queryFn: fetchLastUserReading,
     enabled: session.status === "authenticated",
   });
+
+  if (isFallback) {
+    return <Loading />;
+  }
 
   return (
     <>

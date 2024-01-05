@@ -66,3 +66,24 @@ export const TopToBottom = keyframes({
     transform: "translate(-50%, -47%)",
   },
 });
+
+export const Rotate = keyframes({
+  from: {
+    transform: "rotate(0)",
+  },
+  to: {
+    transform: "rotate(360deg)",
+  },
+});
+
+export const ZoomInOut = keyframes({
+  "0%": {
+    transform: "scale(1)",
+  },
+  "50%": {
+    transform: "scale(1.1)",
+  },
+  "100$": {
+    transform: "scale(1)",
+  },
+});

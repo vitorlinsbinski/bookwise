@@ -46,6 +46,7 @@ import { authOptions } from "../api/auth/[...nextauth].api";
 import formatDateFromNow from "@/utils/dateFormatterFromNow";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
+import { Router } from "next/router";
 
 const searchReviewFormSchema = z.object({
   query: z.string(),

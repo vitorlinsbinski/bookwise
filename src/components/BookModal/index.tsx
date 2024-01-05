@@ -50,9 +50,9 @@ import formatDateFromNow from "@/utils/dateFormatterFromNow";
 import { useSession } from "next-auth/react";
 import { LoginModal } from "../LogInModal";
 import {
-  BookModalContext,
-  BookModalContextProvider,
-} from "@/contexts/BookModalContext";
+  ApplicationContext,
+  ApplicationContextProvider,
+} from "@/contexts/ApplicationContext";
 
 export const userReviewFormSchema = z.object({
   review: z.string().min(1, { message: "Digite sua avaliação" }),
@@ -102,7 +102,7 @@ export function BookModal({ bookId }: BookModalProps) {
 
   const [bookDetails, setBookDetails] = useState<Book>({} as Book);
 
-  const { isBookModalOpen } = useContext(BookModalContext);
+  const { isBookModalOpen } = useContext(ApplicationContext);
 
   async function fetchBookDetails(bookId: string) {
     try {
@@ -144,7 +144,7 @@ export function BookModal({ bookId }: BookModalProps) {
 
   console.log(session);
 
-  const { closeBookModal } = useContext(BookModalContext);
+  const { closeBookModal } = useContext(ApplicationContext);
 
   function handleStarClick(stars: number) {
     setValue("starsAmount", stars);

@@ -25,9 +25,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axios";
-import { GetStaticProps } from "next";
-import { BookModalContext } from "@/contexts/BookModalContext";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ApplicationContext } from "@/contexts/ApplicationContext";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
+import { Loading } from "@/components/Loading";
 
 const searchBookFormSchema = z.object({
   query: z.string(),
@@ -114,6 +116,10 @@ export default function Explore({
     resolver: zodResolver(searchBookFormSchema),
   });
 
+  const { isFallback } = useRouter();
+
+  console.log("isFallback", isFallback);
+
   const searchBookForm = (
     <SearchBookForm onSubmit={handleSubmit(handleSearchBookForm)}>
       <SearchBookBox>
@@ -129,7 +135,11 @@ export default function Explore({
   );
 
   const { isBookModalOpen, onBookModalOpenChange } =
-    useContext(BookModalContext);
+    useContext(ApplicationContext);
+
+  if (isFallback) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -142,6 +152,7 @@ export default function Explore({
         route="explorar"
         title="Explorar"
         children={searchBookForm}></Header>
+
       <ExploreContainer>
         <GenreTags>
           <Tag

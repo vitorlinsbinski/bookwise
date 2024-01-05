@@ -1,23 +1,35 @@
+import { Router } from "next/router";
 import { ReactNode, createContext, useState } from "react";
 
-interface BookModalContextProviderProps {
+interface ApplicationContextProviderProps {
   children: ReactNode;
 }
 
-interface BookModalContextType {
+interface ApplicationContextType {
   isBookModalOpen: boolean;
   toggleBookModal: () => void;
   closeBookModal: () => void;
   openBookModal: () => void;
   onBookModalOpenChange: (open: boolean) => void;
+  isPageLoading: boolean;
 }
 
-export const BookModalContext = createContext({} as BookModalContextType);
+export const ApplicationContext = createContext({} as ApplicationContextType);
 
-export function BookModalContextProvider({
+export function ApplicationContextProvider({
   children,
-}: BookModalContextProviderProps) {
+}: ApplicationContextProviderProps) {
   const [isBookModalOpen, setIsBookModalOpen] = useState(false);
+
+  const [isPageLoading, setIsPageLoading] = useState(false);
+
+  Router.events.on("routeChangeStart", () => {
+    setIsPageLoading(true);
+  });
+
+  Router.events.on("routeChangeComplete", () => {
+    setIsPageLoading(false);
+  });
 
   function toggleBookModal() {
     setIsBookModalOpen((state) => !state);
@@ -36,15 +48,16 @@ export function BookModalContextProvider({
   }
 
   return (
-    <BookModalContext.Provider
+    <ApplicationContext.Provider
       value={{
         isBookModalOpen,
         toggleBookModal,
         closeBookModal,
         openBookModal,
         onBookModalOpenChange,
+        isPageLoading,
       }}>
       {children}
-    </BookModalContext.Provider>
+    </ApplicationContext.Provider>
   );
 }
