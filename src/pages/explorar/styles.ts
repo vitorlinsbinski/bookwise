@@ -218,9 +218,9 @@ export const SkeletonBook = styled("div", {
   display: "flex",
   backgroundImage:
     "linear-gradient(90deg, #181C2A 0%, #262C42 48.63%, #181C2A 100%)",
-  backgroundSize: "900px 100%",
+  backgroundSize: "600px 100%",
   backgroundRepeat: "no-repeat",
-  animation: `${SkeletonAnimation} .8s ease-in-out infinite`,
+  animation: `${SkeletonAnimation} .6s ease-in-out infinite`,
 
   "@media(max-width: 1120px)": {
     maxWidth: "48%",
