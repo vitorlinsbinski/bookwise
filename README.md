@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/public/bookwise-complete-logo.svg" />
+  <img src="/public/bookwise-logo.svg" />
 </div>
 
 <h1 align = "center">Bookwise</h1>
@@ -93,28 +93,28 @@ The profile page shows key information about your data such as your latest revie
 ### Login page
 
 <span>/login</span>
-<img src = "/public/login.png"/>
+<img src = "/public/screenshots/login.png"/>
 
 ### Home page
 
 <span>/</span>
-<img src = "/public/home1.png"/>
-<img src = "/public/home2.png"/>
+<img src = "/public/screenshots/home1.png"/>
+<img src = "/public/screenshots/home2.png"/>
 
 ### Explore Page
 
 <span>/explore</span>
-<img src = "/public/explore.png"/>
+<img src = "/public/screenshots/explore.png"/>
 
 ### Profile Page
 
 <span>/profile</span>
-<img src = "/public/home2.png"/>
+<img src = "/public/screenshots/profile.png"/>
 
 ### Book Modal
 
-<img src = "/public/bookmodal1.png"/>
-<img src = "/public/bookmodal2.png"/>
+<img src = "/public/screenshots/bookmodal1.png"/>
+<img src = "/public/screenshots/bookmodal2.png"/>
 
 ## Deploy
 
