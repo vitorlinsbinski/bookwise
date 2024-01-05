@@ -93,28 +93,28 @@ The profile page shows key information about your data such as your latest revie
 ### Login page
 
 <span>/login</span>
-<img src = "/public/screenshots/login.png"/>
+<img src="/public/screenshots/login.png"/>
 
 ### Home page
 
 <span>/</span>
-<img src = "/public/screenshots/home1.png"/>
-<img src = "/public/screenshots/home2.png"/>
+<img src="/public/screenshots/home1.png"/>
+<img src="/public/screenshots/home2.png"/>
 
 ### Explore Page
 
 <span>/explore</span>
-<img src = "/public/screenshots/explore.png"/>
+<img src="/public/screenshots/explore.png"/>
 
 ### Profile Page
 
 <span>/profile</span>
-<img src = "/public/screenshots/profile.png"/>
+<img src="/public/screenshots/profile.png"/>
 
 ### Book Modal
 
-<img src = "/public/screenshots/bookmodal1.png"/>
-<img src = "/public/screenshots/bookmodal2.png"/>
+<img src="/public/screenshots/bookmodal1.png"/>
+<img src="/public/screenshots/bookmodal2.png"/>
 
 ## Deploy
 
