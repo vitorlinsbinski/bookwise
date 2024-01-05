@@ -76,10 +76,6 @@ export default function Home({ lastRatings, popularBooks }: HomeProps) {
 
   const session = useSession();
 
-  console.log(session);
-
-  console.log(lastRatings, popularBooks);
-
   const { isFallback } = useRouter();
 
   async function fetchLastUserReading() {

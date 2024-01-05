@@ -46,7 +46,7 @@ export function ReviewCard({
   const publishDateDifferenceFromNow = formatDateFromNow(publishedAt);
 
   return (
-    <CardContainer onClick={() => console.log(userName)}>
+    <CardContainer>
       <ProfileArea>
         <Persona>
           <Avatar imgPath={userImagePath} size={40} />

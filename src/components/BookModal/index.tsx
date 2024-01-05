@@ -103,13 +103,9 @@ export function BookModal({ bookId }: BookModalProps) {
 
   const { isBookModalOpen } = useContext(ApplicationContext);
 
-  console.log(bookId);
-
   async function fetchBookDetails(bookId: string) {
     try {
-      console.log("Fetching book details for bookId: ", bookId);
       const { data } = await api.get<Book>(`/books/${bookId}`);
-      console.log("Data from API: ", data);
       return data;
     } catch (error) {
       console.error("Error fetching book details: ", error);
@@ -128,8 +124,6 @@ export function BookModal({ bookId }: BookModalProps) {
     queryFn: () => fetchBookDetails(bookId),
   });
 
-  console.log("bookDetails", bookDetails);
-
   const {
     register,
     handleSubmit,
@@ -145,8 +139,6 @@ export function BookModal({ bookId }: BookModalProps) {
   });
 
   const session = useSession();
-
-  console.log(session);
 
   const { closeBookModal } = useContext(ApplicationContext);
 

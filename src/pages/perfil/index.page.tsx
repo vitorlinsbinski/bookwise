@@ -111,8 +111,6 @@ export default function Profile({ userData }: UserData) {
 
     const { data } = await api.get(`/books/ratings/search`, { params });
 
-    console.log(data);
-
     setUserFilteredRatings(data);
   }
 

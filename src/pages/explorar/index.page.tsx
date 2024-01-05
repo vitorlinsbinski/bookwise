@@ -16,16 +16,14 @@ import { ReactElement, useContext, useEffect, useState } from "react";
 import DefaultLayout from "@/components/DefaultLayout";
 import { MagnifyingGlass } from "phosphor-react";
 import Image from "next/image";
-import bookImg from "../../../public/assets/Book3.png";
 import { Stars } from "@/components/Stars";
-
 import * as Dialog from "@radix-ui/react-dialog";
 import { BookModal } from "@/components/BookModal";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axios";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import { ApplicationContext } from "@/contexts/ApplicationContext";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -61,16 +59,37 @@ export default function Explore({
 }: ExploreProps) {
   const [books, setBooks] = useState<Book[]>(initialBooks);
 
-  const categories: Category[] = initialCategories;
-
-  console.log(initialBooks, initialCategories);
-
   const [selectedCategory, setSelectedCategory] = useState<Category>({
     id: "Tudo",
     name: "Tudo",
   });
 
   const [selectedBookId, setSelectedBookId] = useState("");
+
+  const [isLoadingBooks, setIsLoadingBooks] = useState(false);
+
+  const categories: Category[] = initialCategories;
+
+  const { register, handleSubmit, setValue } = useForm<SearchBookFormData>({
+    resolver: zodResolver(searchBookFormSchema),
+  });
+
+  const searchBookForm = (
+    <SearchBookForm onSubmit={handleSubmit(handleSearchBookForm)}>
+      <SearchBookBox>
+        <SearchBookInput
+          type="text"
+          placeholder="Buscar livro ou autor"
+          {...register("query")}
+        />
+
+        <MagnifyingGlass size={20} />
+      </SearchBookBox>
+    </SearchBookForm>
+  );
+
+  const { isBookModalOpen, onBookModalOpenChange } =
+    useContext(ApplicationContext);
 
   async function fetchBooksOnCategory(categoryId: string) {
     try {
@@ -80,11 +99,6 @@ export default function Explore({
       console.log("Error fetching books: ", error);
     }
   }
-
-  useEffect(() => {
-    setValue("query", "");
-    fetchBooksOnCategory(selectedCategory.id);
-  }, [selectedCategory]);
 
   async function handleSearchBookForm({ query }: SearchBookFormData) {
     const queryParams = new URLSearchParams({
@@ -107,39 +121,12 @@ export default function Explore({
     }
   }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setValue,
-  } = useForm<SearchBookFormData>({
-    resolver: zodResolver(searchBookFormSchema),
-  });
-
-  const { isFallback } = useRouter();
-
-  console.log("isFallback", isFallback);
-
-  const searchBookForm = (
-    <SearchBookForm onSubmit={handleSubmit(handleSearchBookForm)}>
-      <SearchBookBox>
-        <SearchBookInput
-          type="text"
-          placeholder="Buscar livro ou autor"
-          {...register("query")}
-        />
-
-        <MagnifyingGlass size={20} />
-      </SearchBookBox>
-    </SearchBookForm>
-  );
-
-  const { isBookModalOpen, onBookModalOpenChange } =
-    useContext(ApplicationContext);
-
-  if (isFallback) {
-    return <Loading />;
-  }
+  useEffect(() => {
+    setIsLoadingBooks(true);
+    setValue("query", "");
+    fetchBooksOnCategory(selectedCategory.id);
+    setIsLoadingBooks(false);
+  }, [selectedCategory]);
 
   return (
     <>
@@ -184,7 +171,7 @@ export default function Explore({
           onOpenChange={(open) => onBookModalOpenChange(open)}
           open={isBookModalOpen}>
           <Books>
-            {books ? (
+            {isLoadingBooks ? (
               books.map((book) => {
                 return (
                   <Dialog.Trigger
@@ -264,6 +251,6 @@ export const getStaticProps: GetStaticProps<ExploreProps> = async () => {
       initialBooks: initialBooks,
       initialCategories: initialCategories,
     },
-    revalidate: 60 * 60 * 24, // 1 dia
+    revalidate: 60 * 60 * 2, // 2h
   };
 };
