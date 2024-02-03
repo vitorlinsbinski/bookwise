@@ -4,7 +4,7 @@
 
 <h1 align = "center">Bookwise</h1>
 <p>Bookwise is a website to share your rating about a book that you read. Besides, you can search for books based on their category, see your profile statistics, last ratings, popular books, and other features.</p>
-<p>In this project, I learned and practiced a lot of NextJS features, like SSR and SSG. Furthermore, other technologies and libraries were used, like NextAuth for authentication using OAuth 2.0, Prisma ORM, MYSQL Database, React Query, Axios, ZOD, React Hook Form and others.</p>
+<p>In this project, I learned and practiced a lot of NextJS features, like SSR and SSG. Furthermore, other technologies and libraries were used, like NextAuth for authentication using OAuth 2.0, Prisma ORM, MySQL Database, React Query, Axios, ZOD, React Hook Form and others.</p>
 
 <div align="center">
   <div style="display: flex; justify-content: space-between; align-items: center;">
